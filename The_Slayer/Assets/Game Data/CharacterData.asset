@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47bb98b3d8ddc09468d5407b044718a3, type: 3}
-  m_Name: CharacterDataExample
+  m_Script: {fileID: 11500000, guid: 807cae07c85f09047a6be14a111fe9ad, type: 3}
+  m_Name: CharacterData
   m_EditorClassIdentifier: 
-  currentHealth: 12
-  maxHealth: 20
+  currentHealth: 10
+  maxHealth: 10
   defense: 0
   killPoint: 0
   attack: 0
