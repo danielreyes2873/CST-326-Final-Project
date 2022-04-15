@@ -17,13 +17,21 @@ public class AmmoSection : MonoBehaviour
     public TextMeshProUGUI reloadingText;
     
     
+    
+    //--------AMMO TESTING TO BE REPLACED WITH WEAPON'S SPECIFIC CODE LATER----------
     //Ammo Testing
     [Header("Weapon Ammo Testing")] 
+    //'maxAmmo' is the TOTAL ammo you can CARRY on that weapon + the current magazine loaded in.
     public int maxAmmo = 210;
+    //'currentAmmo' is your current TOTAL ammo you have LEFT + the current magazine loaded in.
     public int currentAmmo;
+    //'magazineCapacity' is the total bullets you can fix in your magazine before reloading
     public int magazineCapacity = 30;
+    //'currentMagazine' is the amount of bullets in your current magazine.
     public int currentMagazine;
+    //'fireRate' is projectiles per second
     public float fireRate = 13f;
+    //'lastFired' is the time you last fired a projectile.
     public float lastFired;
     
     
@@ -46,42 +54,40 @@ public class AmmoSection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //If your magazine isn't empty, display ammo count text.
         if (currentMagazine >= 0)
         {
             myAmmoCountText.text = $"{currentMagazine.ToString("00")} / {currentAmmo.ToString("00")}";
         }
         
         
-        //If player's current magazine is empty but still has ammo reload weapon
+        //If player's current magazine is empty but you still has ammo, reload weapon
         if (currentMagazine <= 0 && currentAmmo > 0)
         {
             //Reload
             Reload();
         }
         
-        //testing player shooting
-        // if (Input.GetMouseButtonDown(0))
+        
+        //---------UNCOMMENT TO TEST SHOOTING HERE------
+        
+        //Automatic weapon firing while holding down mouse left click. (Still able to do single shot)
+        
+        // if (Input.GetMouseButton(0))
         // {
-        //     //if player still has ammo in their current magazine, shoot.
         //     Shoot();
         // }
-
-        //Automatic weapon firing
-        if (Input.GetMouseButton(0))
-        {
-            Shoot();
-        }
     }
     
     
-    //Set slider's maxValue
+    //Set slider's max Magazine Value
     public void SetCurrentMaxMagazine(int ammo)
     {
         myAmmoSlider.maxValue = ammo;
         myAmmoSlider.value = ammo;
     }
 
-    //Set slider's current value
+    //Set slider's current Magazine value
     public void SetCurrentMagazine(int ammo)
     {
         myAmmoSlider.value = ammo;
@@ -89,14 +95,19 @@ public class AmmoSection : MonoBehaviour
     
     
 
-    //Shoot
+    //Todo: Set this Shoot function up in 'Player' Script
+    //Shoot Testing
     private void Shoot()
     {
+        //ready to fire.
         if (Time.time - lastFired > 1 / fireRate)
         {
             lastFired = Time.time;
-            //One shoot
+            
+            //One shoot, one bullet
             currentMagazine -= 1;
+            
+            //todo: instantiate projectile
             //instantiate projectile -----> ray cast projectile
         }
 
@@ -105,27 +116,34 @@ public class AmmoSection : MonoBehaviour
     }
 
 
-    
-    //Reload
+    //Todo: Set this Reload function up in 'Weapon/Player' Script
+    //Reload Testing
     private void Reload()
     {
         //Reloading Text
         StartCoroutine(DisplayReloadingText());
+        
         //remove a full magazine from our current ammo
         currentAmmo -= magazineCapacity;
+        
         //current magazine is now full
         currentMagazine += magazineCapacity;
+        
         //update ammo slider back to being full
         myAmmoSlider.value = currentMagazine;
     }
 
+    
+    //Displaying "Reloading..." Text.
     IEnumerator DisplayReloadingText()
     {
         //Reloading Text
         reloadingText.text = "Reloading...";
 
+        //Display "Reloading..." for 1 second.
         yield return new WaitForSeconds(1f);
 
+        //Set reloading text back to blank.
         reloadingText.text = "";
     }
     
