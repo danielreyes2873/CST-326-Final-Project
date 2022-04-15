@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    private CharacterStats playerStats;
+    public CharacterStats playerStats;
 
     protected override void Awake()
     {
