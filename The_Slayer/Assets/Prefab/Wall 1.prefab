@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2363106}
   - component: {fileID: 6523204}
   m_Layer: 0
-  m_Name: Wall
+  m_Name: Wall 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 158516}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 4.987, y: 2, z: 0.27}
-  m_LocalScale: {x: 0.9836147, y: 0.98361504, z: 0.98361504}
+  m_LocalScale: {x: 1.4510653, y: 1.4510657, z: 1.4510657}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9089988680189122287}
@@ -346,7 +346,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 7494
+  m_VersionIndex: 7461
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
