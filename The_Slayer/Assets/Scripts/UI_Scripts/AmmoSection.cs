@@ -73,10 +73,10 @@ public class AmmoSection : MonoBehaviour
         
         //Automatic weapon firing while holding down mouse left click. (Still able to do single shot)
         
-        // if (Input.GetMouseButton(0))
-        // {
-        //     Shoot();
-        // }
+        if (Input.GetMouseButton(0))
+        {
+            Shoot();
+        }
     }
     
     
