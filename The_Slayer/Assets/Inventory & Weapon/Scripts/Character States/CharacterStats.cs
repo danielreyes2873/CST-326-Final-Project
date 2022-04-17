@@ -31,8 +31,9 @@ public class CharacterStats : MonoBehaviour
         {
             Debug.Log("You missed characterTemplateData");
         }
+        GameManager.Instance.playerStats.AddHealth(currentHealth);
     }
-
+    
     //Melee Attack
     public void MeleeAttack(CharacterStats defender)
     {
@@ -43,6 +44,7 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
+    //TODO takeDamage
     public void TakeDamage()
     {
 
@@ -96,7 +98,6 @@ public class CharacterStats : MonoBehaviour
         //Destory Weapon On Player
         Destroy(weaponSlot.GetChild(0).gameObject);
 
-        //TODO Drop current Weapon
         DropCurve(currentWeapon.weaponOnWorld);
 
         //Put secondWeapon on Player's hands

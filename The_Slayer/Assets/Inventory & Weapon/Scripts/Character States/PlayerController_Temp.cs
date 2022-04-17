@@ -7,8 +7,11 @@ public class PlayerController_Temp : MonoBehaviour
 {
     private Rigidbody rb;
     public float speed;
+    
+    
     public Vector3 forwardDistance;
     public float radius;
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -16,8 +19,7 @@ public class PlayerController_Temp : MonoBehaviour
     private void Update()
     {
         Movement();
-
-        //see result in function OnDrawGizmosSelected
+        OtherButtons();
     }
 
     private void Movement()
@@ -42,12 +44,17 @@ public class PlayerController_Temp : MonoBehaviour
             rb.AddForce(gameObject.transform.right * speed * Time.deltaTime, ForceMode.Impulse);
         }
 
-        if(Input.GetKeyDown(KeyCode.F))
+    }
+
+    private void OtherButtons()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
         {
+            //see result in function OnDrawGizmosSelected
             checkItem();
         }
 
-        if(Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.G))
         {
             GameManager.Instance.playerStats.DropWeapon();
         }
@@ -78,6 +85,7 @@ public class PlayerController_Temp : MonoBehaviour
         }
     }
 
+    //You can ignore this if you do not want to see the blue sphere
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
