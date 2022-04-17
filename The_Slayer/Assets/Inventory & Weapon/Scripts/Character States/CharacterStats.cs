@@ -31,7 +31,6 @@ public class CharacterStats : MonoBehaviour
         {
             Debug.Log("You missed characterTemplateData");
         }
-        GameManager.Instance.playerStats.AddHealth(currentHealth);
     }
     
     //Melee Attack
