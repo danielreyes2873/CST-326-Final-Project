@@ -62,6 +62,7 @@ public class CharacterStats : MonoBehaviour
         {
             //No Gun
             currentWeapon = weapon;
+            Instantiate(weapon.weaponPrefab, weaponSlot);
         }
         else if(secondWeapon == null)
         {
@@ -69,23 +70,22 @@ public class CharacterStats : MonoBehaviour
             Destroy(weaponSlot.GetChild(0).gameObject);
             secondWeapon = currentWeapon;
             currentWeapon = weapon;
+            Instantiate(weapon.weaponPrefab, weaponSlot);
         }
         else
         {
             //two guns ---
-            //Destory weapon on the hand
-            Destroy(weaponSlot.GetChild(0).gameObject);
-            print("Destory Success");
-            //TODO:take out the second gun (add animation here if needed)
-
             //Drop first weapon prefab on the ground
-        }
+            DropWeapon();
+            secondWeapon = weapon;
 
-        Instantiate(weapon.weaponPrefab, weaponSlot);
+            //TODO:take out the second gun (add animation here if needed)
+        }
 
         //TODO: Check Weapon Type and Setup Animation
     }
 
+    //Drop first Weapon and if you have second weapon, you will take it out
     public void DropWeapon()
     {
         if (currentWeapon == null)
