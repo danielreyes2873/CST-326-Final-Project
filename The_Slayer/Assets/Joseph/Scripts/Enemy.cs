@@ -10,21 +10,20 @@ public class Enemy : MonoBehaviour
     public int strength;
     public int wave;
     public bool dead=false;
+    private float regularSpeed = 0.3f;
+    private float regularAnimationSpeed = 2.0f;
+    private float deathAnimationSpeed = 0.7f;
+    private float attackDistance = 0.75f;
+
     public UnityEngine.AI.NavMeshAgent agent;
     Animator enemyAnimation;
 
     void Start()
     {
-        health=20;
         enemyAnimation=this.GetComponent<Animator>();
-        enemyAnimation.speed=2.0f;
-        agent.speed = 0.5f;
-
         wave = GameObject.Find("SpawnPoints").GetComponent<Spawner>().currentWave;
-
         setHealth(wave);
         setStrength(wave);
-        // setSpeed(wave);
     }
 
     void Update()
@@ -34,13 +33,13 @@ public class Enemy : MonoBehaviour
                 Vector3 playerPosition = GameObject.FindWithTag("Player").transform.position;
                 agent.SetDestination(playerPosition);
 
-            if(Vector3.Distance(this.transform.position,playerPosition)<0.75f){
-                enemyAnimation.speed=2.0f;
+            if(Vector3.Distance(this.transform.position,playerPosition)<attackDistance){
+                enemyAnimation.speed=regularAnimationSpeed;
                 enemyAnimation.SetTrigger("Attack");
             }
             else{
                 enemyAnimation.SetTrigger("Walk");
-                agent.speed = 0.5f;
+                agent.speed = regularSpeed;
             }
             }
         }
@@ -52,7 +51,7 @@ public class Enemy : MonoBehaviour
         GameObject.Find("SpawnPoints").GetComponent<Spawner>().zombieKilled();
         agent.speed=0.0f;
         this.GetComponent<UnityEngine.AI.NavMeshAgent>().isStopped = false;
-        enemyAnimation.speed=0.7f;
+        enemyAnimation.speed=deathAnimationSpeed;
         enemyAnimation.SetTrigger("Death");
         Destroy(this.gameObject,5f);
         dead=true;
@@ -60,11 +59,10 @@ public class Enemy : MonoBehaviour
     }
 
     public void setHealth(int wave){
-      health += 10*wave;
+      health += 10;
     }
 
-    public void setStrength(int damageDealt){
-      int newStrength = wave - 1;
-      health += 10 * newStrength;
+    public void setStrength(int wave){
+      health += 10;
     }
 }

@@ -20,9 +20,11 @@ public class RaycastTest : MonoBehaviour
                     }
                     if(hit.transform.name=="BigZombie(Clone)"){
                         hit.transform.GetComponent<BigZombie>().decrementHealth(weaponStrength);
+                        Instantiate(blood,hit.point,Quaternion.LookRotation(hit.normal));
                     }
                     if(hit.transform.name=="Ghoul(Clone)"){
                         hit.transform.GetComponent<Ghoul>().decrementHealth(weaponStrength);
+                        Instantiate(blood,hit.point,Quaternion.LookRotation(hit.normal));
                     }
                 }
             }
