@@ -25,6 +25,7 @@ public class BigZombie : MonoBehaviour
     void Update()
     {
         if(!dead){
+        if(GameObject.FindWithTag("Player")!=null){
         Vector3 playerPosition = GameObject.FindWithTag("Player").transform.position;
         agent.SetDestination(GameObject.FindWithTag("Player").transform.position);
 
@@ -36,6 +37,7 @@ public class BigZombie : MonoBehaviour
             enemyAnimation.SetTrigger("Walk");
             agent.speed = regularSpeed;
             enemyAnimation.speed=regularAnimationSpeed;
+        }
         }
         }
     }

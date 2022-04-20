@@ -22,8 +22,9 @@ public class Ghoul : MonoBehaviour
 
     void Update(){
         if(!dead){
+        if(GameObject.FindWithTag("Player")!=null){
         Vector3 playerPosition = GameObject.FindWithTag("Player").transform.position;
-        agent.SetDestination(GameObject.FindWithTag("Player").transform.position);
+        agent.SetDestination(playerPosition);
 
         if(Vector3.Distance(this.transform.position, playerPosition)<attackDistance){
             enemyAnimation.SetTrigger("Attack");
@@ -33,6 +34,7 @@ public class Ghoul : MonoBehaviour
         else{
             enemyAnimation.SetTrigger("Run");
             agent.speed=regularSpeed;
+        }
         }
         }
     }
