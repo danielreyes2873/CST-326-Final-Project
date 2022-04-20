@@ -18,7 +18,7 @@ public class PlayerController_Temp : MonoBehaviour
     }
     private void Update()
     {
-        Movement();
+        // Movement();
         OtherButtons();
     }
 

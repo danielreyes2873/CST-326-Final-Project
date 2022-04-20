@@ -22,6 +22,7 @@ public class ItemUI : MonoBehaviour
         {
             Bag.itemsList[Index].itemData = null; 
             icon.gameObject.SetActive(false);
+            InventoryManager.Instance.tooltip.gameObject.SetActive(false);
             return;
         }
 
