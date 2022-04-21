@@ -286,7 +286,7 @@ MonoBehaviour:
     m_Bits: 1024
   jumpKey: 32
   sprintKey: 304
-  crouchKey: 306
+  crouchKey: 99
   walkSpd: 7
   sprintSpd: 15
   crouchSpd: 4
