@@ -1,10 +1,19 @@
-﻿# Default ignored files
+# Default ignored files
 /shelf/
 /workspace.xml
 # Rider ignored files
 /contentModel.xml
 /projectSettingsUpdater.xml
 /.idea.The_Slayer.iml
+
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/.idea.The_Slayer.iml
+/contentModel.xml
+/projectSettingsUpdater.xml
+
 /modules.xml
 # Editor-based HTTP Client requests
 /httpRequests/
