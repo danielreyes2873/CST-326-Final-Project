@@ -16,8 +16,16 @@ public class HealthBar : MonoBehaviour
     //Health Bar Text Value
     [Header("Health Bar Text Value")]
     public TextMeshProUGUI myHealthValue;
-    
-    
+
+
+    private void Awake()
+    {
+        //Game manager is not linked with player using tony's code.
+        if (GameManager.Instance.playerStats.characterData == null)
+        {
+            Debug.Log("The character data is not set up! (GameManager.Instance.playerStats)");
+        }
+    }
 
 
     private void Start()
