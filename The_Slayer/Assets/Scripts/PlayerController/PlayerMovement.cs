@@ -21,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float groundDistance = 0.4f;
     [SerializeField] private bool isGrounded;
 
+    public float inputX;
+    public float inputZ;
+
     // Update is called once per frame
     void Update()
     {
@@ -44,8 +47,8 @@ public class PlayerMovement : MonoBehaviour
             gravityVelocity.y = -2f;
         }
         
-        float inputX = Input.GetAxis("Horizontal");
-        float inputZ = Input.GetAxis("Vertical");
+        inputX = Input.GetAxis("Horizontal");
+        inputZ = Input.GetAxis("Vertical");
 
         Vector3 move = transform.forward * inputZ + transform.right * inputX;
 

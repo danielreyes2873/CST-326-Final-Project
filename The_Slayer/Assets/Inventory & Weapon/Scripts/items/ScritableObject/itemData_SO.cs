@@ -29,6 +29,8 @@ public class itemData_SO : ScriptableObject
     /// </summary>
     [Header("Equipment")]
     public GameObject weaponPrefab;
+    public GameObject magazine;
+
     [Header("OnWorld")]
     public GameObject weaponOnWorld;
 

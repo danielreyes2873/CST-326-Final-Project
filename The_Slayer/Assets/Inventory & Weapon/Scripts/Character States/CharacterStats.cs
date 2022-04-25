@@ -21,6 +21,10 @@ public class CharacterStats : MonoBehaviour
     public itemData_SO currentWeapon;
     public itemData_SO secondWeapon;
 
+    public Transform MagazineSlot;
+    private GameObject Magzine;
+    private GameObject Weapon;
+
     void Awake()
     {
         if (characterTemplateData != null)
@@ -30,6 +34,11 @@ public class CharacterStats : MonoBehaviour
         else
         {
             Debug.Log("You missed characterTemplateData");
+        }
+
+        if(currentWeapon != null)
+        {
+            GenerateWeapon(currentWeapon);
         }
     }
     
@@ -62,15 +71,15 @@ public class CharacterStats : MonoBehaviour
         {
             //No Gun
             currentWeapon = weapon;
-            Instantiate(weapon.weaponPrefab, weaponSlot);
+            GenerateWeapon(currentWeapon);
         }
         else if(secondWeapon == null)
         {
             //one Gun
-            Destroy(weaponSlot.GetChild(0).gameObject);
-            secondWeapon = currentWeapon;
-            currentWeapon = weapon;
-            Instantiate(weapon.weaponPrefab, weaponSlot);
+            //Destroy(weaponSlot.GetChild(0).gameObject);
+            secondWeapon = weapon;
+            //currentWeapon = weapon;
+            //GenerateWeapon(currentWeapon);
         }
         else
         {
@@ -96,6 +105,8 @@ public class CharacterStats : MonoBehaviour
 
         //Destory Weapon On Player
         Destroy(weaponSlot.GetChild(0).gameObject);
+        if(Magzine)
+            Destroy(Magzine);
 
         DropCurve(currentWeapon.weaponOnWorld);
 
@@ -145,5 +156,25 @@ public class CharacterStats : MonoBehaviour
         }
         //Debug.Log("Character's Current Health is " + currentHealth);
     }
+
+    private void GenerateWeapon(itemData_SO weapon)
+    {
+        Weapon = Instantiate(weapon.weaponPrefab, weaponSlot);
+        Magzine = Instantiate(weapon.magazine, MagazineSlot);
+        Magzine.SetActive(false);
+    }
+
+    public void StartReload()
+    {
+        Magzine.SetActive(true);
+        Weapon.transform.Find("magazine").gameObject.SetActive(false);
+    }
+
+    public void FinishReload()
+    {
+        Magzine.SetActive(false);
+        Weapon.transform.Find("magazine").gameObject.SetActive(true);
+    }
+
 
 }

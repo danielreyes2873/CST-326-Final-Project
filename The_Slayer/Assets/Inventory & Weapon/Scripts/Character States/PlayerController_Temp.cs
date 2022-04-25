@@ -7,14 +7,16 @@ public class PlayerController_Temp : MonoBehaviour
 {
     private Rigidbody rb;
     public float speed;
-    
-    
     public Vector3 forwardDistance;
     public float radius;
+    private Animator anim;
+
     
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
+
     }
     private void Update()
     {
@@ -54,9 +56,14 @@ public class PlayerController_Temp : MonoBehaviour
             checkItem();
         }
 
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.G) && GameManager.Instance.playerStats.secondWeapon != null)
         {
             GameManager.Instance.playerStats.DropWeapon();
+        }
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            anim.SetTrigger("Reload");
         }
     }
 
