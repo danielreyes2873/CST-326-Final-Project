@@ -27,6 +27,10 @@ public class Ghoul : MonoBehaviour
         agent.SetDestination(playerPosition);
 
         if(Vector3.Distance(this.transform.position, playerPosition)<attackDistance){
+            Vector3 direction = playerPosition-this.transform.position;
+            direction.y = 0;
+            Quaternion rotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 5f * Time.deltaTime);
             enemyAnimation.SetTrigger("Attack");
             isDamaged=true;
             

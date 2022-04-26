@@ -6,6 +6,6 @@ public class BloodParticle : MonoBehaviour
 {
     void Start()
     {
-        Destroy(this.gameObject,2.5f);
+        Destroy(this.gameObject,10f);
     }
 }

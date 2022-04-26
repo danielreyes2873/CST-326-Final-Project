@@ -30,6 +30,10 @@ public class BigZombie : MonoBehaviour
         agent.SetDestination(GameObject.FindWithTag("Player").transform.position);
 
         if(Vector3.Distance(this.transform.position,playerPosition)<attackDistance){
+            Vector3 direction = playerPosition-this.transform.position;
+            direction.y = 0;
+            Quaternion rotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 5f * Time.deltaTime);
             enemyAnimation.speed=attackAnimationSpeed;
             enemyAnimation.SetTrigger("Attack");
         }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Enemy : MonoBehaviour
 {
     [Header("Enemy Attributes")]
-    public int health=20;
+    private int health=50;
     public float speed=0.5f;
     public int strength;
     public int wave;
@@ -13,27 +13,59 @@ public class Enemy : MonoBehaviour
     private float regularSpeed = 0.3f;
     private float regularAnimationSpeed = 2.0f;
     private float deathAnimationSpeed = 0.7f;
-    private float attackDistance = 0.75f;
-
+    public float attackDistance = 0.75f;
+    private float activeDistance = 10f;
+    public bool active = false;
+    public bool gotShot = false;
+    public List<GameObject> powerupList;
+    public GameObject bloodHead;
+    public GameObject headExplode;
+    public GameObject bloodExplode;
+    
     public UnityEngine.AI.NavMeshAgent agent;
     Animator enemyAnimation;
-
+    
     void Start()
     {
         enemyAnimation=this.GetComponent<Animator>();
+        agent=this.GetComponent<UnityEngine.AI.NavMeshAgent>();
         wave = GameObject.Find("SpawnPoints").GetComponent<Spawner>().currentWave;
-        setHealth(wave);
-        setStrength(wave);
+        setStats(wave-1);
     }
 
     void Update()
     {
         if(!dead){
+          Vector3 playerPosition = GameObject.FindWithTag("Player").transform.position;
+          if(Vector3.Distance(this.transform.position,playerPosition)<activeDistance || active || gotShot){
+            active=true;
+            ActiveEnemy(); 
+          }
+        }
+    }
+
+    public void decrementHealth(int damageDealt){
+      if(!dead){
+        health=health-damageDealt;
+        gotShot=true;
+        if(health<=0){
+            Death();
+        }
+      }
+    }
+
+    public void ActiveEnemy(){
             if(GameObject.FindWithTag("Player")!=null){
                 Vector3 playerPosition = GameObject.FindWithTag("Player").transform.position;
                 agent.SetDestination(playerPosition);
 
             if(Vector3.Distance(this.transform.position,playerPosition)<attackDistance){
+                //makes enemy face the player
+                Vector3 direction = playerPosition-this.transform.position;
+                direction.y = 0;
+                Quaternion rotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 5f * Time.deltaTime);
+
                 enemyAnimation.speed=regularAnimationSpeed;
                 enemyAnimation.SetTrigger("Attack");
             }
@@ -42,27 +74,51 @@ public class Enemy : MonoBehaviour
                 agent.speed = regularSpeed;
             }
             }
-        }
     }
 
-    public void decrementHealth(int damageDealt){
-      health=health-10;
-      if(health<=0 && !dead){
+    public void setStats(int wave){
+      health +=  wave * 10;
+      strength += wave * 10;
+    }
+
+    public bool willSpawn(){
+      int willSpawn = Random.Range(0,15);
+      if(willSpawn==5){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+    public void Death(){
         GameObject.Find("SpawnPoints").GetComponent<Spawner>().zombieKilled();
         agent.speed=0.0f;
+        if(willSpawn()){
+          spawnPowerup();
+        }
         this.GetComponent<UnityEngine.AI.NavMeshAgent>().isStopped = false;
         enemyAnimation.speed=deathAnimationSpeed;
         enemyAnimation.SetTrigger("Death");
-        Destroy(this.gameObject,5f);
+        Destroy(this.gameObject,10f);
         dead=true;
-      }
     }
 
-    public void setHealth(int wave){
-      health += 10;
+    public void Headshot(){
+      headExplode.SetActive(true);
+      bloodExplode.SetActive(true);
+      bloodExplode.transform.parent=null;
+      enemyAnimation.SetTrigger("Walk");
+      enemyAnimation.SetTrigger("Death");
+      Invoke("activate",1f);
     }
 
-    public void setStrength(int wave){
-      health += 10;
+    public void activate(){
+      bloodHead.SetActive(true);
+    }
+
+    public void spawnPowerup(){
+        int spawn = Random.Range(0,powerupList.Count);
+        Vector3 powerupPosition = new Vector3(0f,0.4f,0f);
+        Instantiate(powerupList[spawn],this.transform.position+powerupPosition,this.transform.rotation);
     }
 }
