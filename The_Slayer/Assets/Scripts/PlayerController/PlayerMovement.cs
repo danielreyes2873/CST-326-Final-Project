@@ -9,24 +9,49 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController controller;
     public Transform groundCheck;
     public LayerMask groundMask;
+    
+    [Header("Keybinds")]
+    public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode sprintKey = KeyCode.LeftShift;
+    public KeyCode crouchKey = KeyCode.LeftControl;
 
     [Header("Properties")]
-    public float speed = 10f;
-    public float gravity = -9.81f;
+    public float walkSpd = 10f;
+    public float sprintSpd = 15f;
+    public float crouchSpd = 5f;
     public float jumpHeight = 5f;
+    public float gravity = -9.81f;
 
-    [Header("Private")]
+    [Header("Movement State")]
+    public MovementState state;
+    public enum MovementState
+    {
+        walking,
+        sprinting,
+        crouching,
+        air
+    }
+
+    [Header("Private/Debugging")]
     [SerializeField] private Vector3 velocity;
     [SerializeField] private Vector3 gravityVelocity;
     [SerializeField] private float groundDistance = 0.4f;
     [SerializeField] private bool isGrounded;
+    [SerializeField] private float movementSpeed;
+    [SerializeField] private float characterHeight;
+    [SerializeField] private float crouchHeight = 1f;
 
-    // Update is called once per frame
+    void Awake()
+    {
+        characterHeight = controller.height;
+    }
+
     void Update()
     {
         // Debugging
         velocity = controller.velocity;
         
+        StateHandler();
         HandleGravity();
         GroundCheck();
         ApplyMovement();
@@ -34,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
     void ApplyMovement()
     {
-        if (isGrounded && gravityVelocity.y < 0 && Input.GetButton("Jump"))
+        if (isGrounded && gravityVelocity.y < 0 && Input.GetKey(jumpKey))
         {
             ApplyJump();
         }
@@ -49,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 move = transform.forward * inputZ + transform.right * inputX;
 
-        controller.Move(move * speed * Time.deltaTime + gravityVelocity * Time.deltaTime);
+        controller.Move(move * movementSpeed * Time.deltaTime + gravityVelocity * Time.deltaTime);
     }
 
     void HandleGravity()
@@ -65,6 +90,38 @@ public class PlayerMovement : MonoBehaviour
     void ApplyJump()
     {
         gravityVelocity.y += jumpHeight;
+    }
+
+    void StateHandler()
+    {
+        // Mode - Crouching
+        if (Input.GetKey(crouchKey))
+        {
+            state = MovementState.crouching;
+            movementSpeed = crouchSpd;
+            controller.height = crouchHeight;
+        }
+        // Mode - Sprinting
+        else if(isGrounded && Input.GetKey(sprintKey))
+        {
+            state = MovementState.sprinting;
+            movementSpeed = sprintSpd;
+            controller.height = characterHeight;
+        }
+        // Mode - Walking
+        else if (isGrounded)
+        {
+            state = MovementState.walking;
+            movementSpeed = walkSpd;
+            controller.height = characterHeight;
+        }
+        // Mode - Air
+        else
+        {
+            state = MovementState.air;
+            movementSpeed = walkSpd;
+            controller.height = characterHeight;
+        }
     }
 
     // Debug
