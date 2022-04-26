@@ -69,7 +69,6 @@ crashlytics-build.properties
 
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
-
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 ### Intellij ###
@@ -180,4 +179,4 @@ fabric.properties
 # CodeStream plugin
 # https://plugins.jetbrains.com/plugin/12206-codestream
 .idea/codestream.xml
-
+.idea/codestream.xml

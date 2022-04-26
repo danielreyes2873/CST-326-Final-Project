@@ -4,12 +4,18 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Spawnpoint
+  - Ghoul
+  - Enemy
+  - Common
+  - Head
+  - Big
   - item
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - 
