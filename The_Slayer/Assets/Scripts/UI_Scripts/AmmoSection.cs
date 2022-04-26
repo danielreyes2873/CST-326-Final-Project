@@ -18,6 +18,16 @@ public class AmmoSection : MonoBehaviour
     
     
     
+    //TESTING BULLET IMAGE FOR AMMO SECTION (REMOVE IF DOES NOT WORK)
+    public GameObject myPanel;
+    public Image myBulletImage;
+
+
+
+
+
+
+
     //--------AMMO TESTING TO BE REPLACED WITH WEAPON'S SPECIFIC CODE LATER----------
     //Ammo Testing
     [Header("Weapon Ammo Testing")] 
@@ -47,6 +57,12 @@ public class AmmoSection : MonoBehaviour
         
         //Ammo Slider
         SetCurrentMaxMagazine(magazineCapacity);
+        
+        //BULLET IMAGE TEST (REMOVE IF DOES NOT WORK)
+        for (int i = 0; i < magazineCapacity; i++)
+        {
+            Instantiate(myBulletImage, myPanel.transform.position, Quaternion.identity, myPanel.transform);
+        }
 
 
     }
@@ -104,6 +120,13 @@ public class AmmoSection : MonoBehaviour
         {
             lastFired = Time.time;
             
+            //TESTING BULLET IMAGE (REMOVE IF DOES NOT WORK)
+            if (currentMagazine > 0)
+            {
+                Destroy(myPanel.transform.GetChild(currentMagazine -1).gameObject);
+            }
+
+            
             //One shoot, one bullet
             currentMagazine -= 1;
             
@@ -113,6 +136,8 @@ public class AmmoSection : MonoBehaviour
 
         //Update slider UI display
         SetCurrentMagazine(currentMagazine);
+        
+
     }
 
 
@@ -131,6 +156,13 @@ public class AmmoSection : MonoBehaviour
         
         //update ammo slider back to being full
         myAmmoSlider.value = currentMagazine;
+        
+        //Testing bullet images in ammo section
+        for (int i = 0; i < magazineCapacity; i++)
+        {
+            Instantiate(myBulletImage, myPanel.transform.position, Quaternion.identity, myPanel.transform);
+        }
+        
     }
 
     
