@@ -67,13 +67,6 @@
       },
       "url": "https://packages.unity.com"
     },
-    "com.unity.settings-manager": {
-      "version": "1.0.3",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
     "com.unity.sysroot": {
       "version": "2.0.0",
       "depth": 1,
