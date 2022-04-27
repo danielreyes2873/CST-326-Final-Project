@@ -9,11 +9,22 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController controller;
     public Transform groundCheck;
     public LayerMask groundMask;
+    public Camera playerCamera;
     
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode crouchKey = KeyCode.LeftControl;
+    
+    [Header("Headbob Parameters")]
+    public float walkBobSpeed = 14f;
+    public float walkBobAmount = 0.05f;
+    public float sprintBobSpeed = 18f;
+    public float sprintBobAmount = 0.11f;
+    public float crouchBobSpeed = 8f;
+    public float crouchBobAmount = 0.025f;
+    private float defaultYPos = 0f;
+    private float timer;
 
     [Header("Properties")]
     public float walkSpd = 10f;
@@ -44,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         characterHeight = controller.height;
+        defaultYPos = playerCamera.transform.localPosition.y;
     }
 
     void Update()
@@ -51,45 +63,83 @@ public class PlayerMovement : MonoBehaviour
         // Debugging
         velocity = controller.velocity;
         
-        StateHandler();
-        HandleGravity();
         GroundCheck();
+        StateHandler();
         ApplyMovement();
+        HandleHeadBob();
+    }
+
+    public void HandleHeadBob()
+    {
+        if (!controller.isGrounded) return;
+
+        if (Mathf.Abs(controller.velocity.x) > 0.1f || Mathf.Abs(controller.velocity.x) > 0.1f)
+        {
+            timer += Time.deltaTime * (state switch
+            {
+                MovementState.crouching => crouchBobSpeed,
+                MovementState.sprinting => sprintBobSpeed,
+                _ => walkBobSpeed
+            });
+            playerCamera.transform.localPosition = new Vector3(
+                playerCamera.transform.localPosition.x,
+                defaultYPos + Mathf.Sin(timer) * state switch
+                {
+                    MovementState.crouching => crouchBobAmount,
+                    MovementState.sprinting => sprintBobAmount,
+                    _ => walkBobAmount
+                },
+                playerCamera.transform.localPosition.z);
+        }
+
+        if (playerCamera.transform.localPosition.y > defaultYPos + 0.05f)
+        {
+            float decreaseY = playerCamera.transform.localPosition.y - 0.1f * Time.deltaTime;
+            playerCamera.transform.localPosition = new Vector3(
+                playerCamera.transform.localPosition.x,
+                decreaseY,
+                playerCamera.transform.localPosition.z);
+        }
+        else if (playerCamera.transform.localPosition.y < defaultYPos - 0.05f)
+        {
+            float increaseY = playerCamera.transform.localPosition.y + 0.1f * Time.deltaTime;
+            playerCamera.transform.localPosition = new Vector3(
+                playerCamera.transform.localPosition.x,
+                increaseY,
+                playerCamera.transform.localPosition.z);
+        }
     }
 
     void ApplyMovement()
     {
-        if (isGrounded && gravityVelocity.y < 0 && Input.GetKey(jumpKey))
+        if (isGrounded && Input.GetKey(jumpKey))
         {
-            ApplyJump();
+            gravityVelocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
         }
         else if (isGrounded && gravityVelocity.y < 0)
         {
-            // Reset gravity velocity
             gravityVelocity.y = -2f;
+        }
+        else if (!isGrounded)
+        {
+            gravityVelocity.y += gravity * Time.deltaTime;
         }
         
         float inputX = Input.GetAxis("Horizontal");
         float inputZ = Input.GetAxis("Vertical");
 
         Vector3 move = transform.forward * inputZ + transform.right * inputX;
-
+        if (move.magnitude > 1)
+        {
+            move.Normalize();
+        }
+        
         controller.Move(move * movementSpeed * Time.deltaTime + gravityVelocity * Time.deltaTime);
-    }
-
-    void HandleGravity()
-    {
-        gravityVelocity.y += gravity * Time.deltaTime;
     }
 
     void GroundCheck()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-    }
-
-    void ApplyJump()
-    {
-        gravityVelocity.y += jumpHeight;
     }
 
     void StateHandler()
@@ -127,7 +177,7 @@ public class PlayerMovement : MonoBehaviour
     // Debug
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(groundCheck.position, groundDistance);
+        Gizmos.color = new Color(0.0f, 1.0f, 0.0f, 0.35f);
+        Gizmos.DrawSphere(groundCheck.position, groundDistance);
     }
 }
