@@ -11,6 +11,7 @@ TagManager:
   - Head
   - Big
   - item
+  - Limb
   layers:
   - Default
   - TransparentFX

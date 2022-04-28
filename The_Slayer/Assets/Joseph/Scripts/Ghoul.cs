@@ -11,7 +11,7 @@ public class Ghoul : MonoBehaviour
     public bool isDamaged=false;
     private float regularSpeed = 2.0f;
     private float deathAnimationSpeed = 0.7f;
-    private float attackDistance = 0.7f;
+    private float attackDistance = 1.8f;
     public bool dead=false;
     public UnityEngine.AI.NavMeshAgent agent;
     Animator enemyAnimation;

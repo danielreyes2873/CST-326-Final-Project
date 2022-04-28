@@ -13,8 +13,8 @@ public class Enemy : MonoBehaviour
     private float regularSpeed = 0.3f;
     private float regularAnimationSpeed = 2.0f;
     private float deathAnimationSpeed = 0.7f;
-    public float attackDistance = 0.75f;
-    private float activeDistance = 10f;
+    private float attackDistance = 1.5f;
+    private float activeDistance = 5f;
     public bool active = false;
     public bool gotShot = false;
     public List<GameObject> powerupList;
@@ -49,6 +49,7 @@ public class Enemy : MonoBehaviour
         health=health-damageDealt;
         gotShot=true;
         if(health<=0){
+            dead=true;
             Death();
         }
       }
@@ -59,7 +60,7 @@ public class Enemy : MonoBehaviour
                 Vector3 playerPosition = GameObject.FindWithTag("Player").transform.position;
                 agent.SetDestination(playerPosition);
 
-            if(Vector3.Distance(this.transform.position,playerPosition)<attackDistance){
+            if(Vector3.Distance(this.transform.position,playerPosition)<=attackDistance){
                 //makes enemy face the player
                 Vector3 direction = playerPosition-this.transform.position;
                 direction.y = 0;
@@ -79,11 +80,13 @@ public class Enemy : MonoBehaviour
     public void setStats(int wave){
       health +=  wave * 10;
       strength += wave * 10;
+      regularSpeed+=0.15f;
+      regularAnimationSpeed+=0.15f;
     }
 
     public bool willSpawn(){
       int willSpawn = Random.Range(0,15);
-      if(willSpawn==5){
+      if(willSpawn<=5){
         return true;
       }
       else{
@@ -91,6 +94,7 @@ public class Enemy : MonoBehaviour
       }
     }
     public void Death(){
+        this.GetComponent<CapsuleCollider>().enabled = false;
         GameObject.Find("SpawnPoints").GetComponent<Spawner>().zombieKilled();
         agent.speed=0.0f;
         if(willSpawn()){
@@ -118,7 +122,7 @@ public class Enemy : MonoBehaviour
 
     public void spawnPowerup(){
         int spawn = Random.Range(0,powerupList.Count);
-        Vector3 powerupPosition = new Vector3(0f,0.4f,0f);
+        Vector3 powerupPosition = new Vector3(0f,0.7f,0f);
         Instantiate(powerupList[spawn],this.transform.position+powerupPosition,this.transform.rotation);
     }
 }
