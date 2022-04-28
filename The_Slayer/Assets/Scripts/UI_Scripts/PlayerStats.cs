@@ -19,7 +19,7 @@ public class PlayerStats : MonoBehaviour
 
     public AudioClip gameOverSong;
 
-        [Header("Player Stats - end of game display")]
+    [Header("Player Stats - end of game display")]
     //player stats
     public static int totalPlayerScore;
     public static int totalPlayerKills;
@@ -42,11 +42,26 @@ public class PlayerStats : MonoBehaviour
     //Will count as money
     public int currentPlayerScore;
 
+    //when the player presses 'TAB' display stats
+    [Header("Press TAB show stats")] 
+    public GameObject tabStatsUI;
+
+    [Header("GUI text elements (FOR TAB)")]
+    //GUI Hookup Elements
+    public TextMeshProUGUI TABdisplayTotalPlayerScore;
+    public TextMeshProUGUI TABdisplayTotalPlayerKills;
+    public TextMeshProUGUI TABdisplayTotalPlayerHeadshots;
+
+
+    private bool gameIsOver;
+
 
     private void Start()
     {
         gameOverDisplay.SetActive(false);
         myAudioSource = GetComponent<AudioSource>();
+
+        gameIsOver = false;
     }
 
     private void Update()
@@ -65,11 +80,38 @@ public class PlayerStats : MonoBehaviour
         displayTotalPlayerKills.text = $"{totalPlayerKills}";
         displayTotalPlayerHeadshots.text = $"{totalPlayerHeadshots}";
         
+        
+        //Display player score, kills, and headshots (FOR TAB)
+        TABdisplayTotalPlayerScore.text = $"{totalPlayerScore}";
+        TABdisplayTotalPlayerKills.text = $"{totalPlayerKills}";
+        TABdisplayTotalPlayerHeadshots.text = $"{totalPlayerHeadshots}";
+        
+
+        
+        //To display TAB PLAYER STATS, if player presses/holds tab
+        if (Input.GetKey(KeyCode.Tab) && !gameIsOver)
+        {
+            tabStatsUI.SetActive(true);
+        }
+        else
+        {
+            tabStatsUI.SetActive(false);
+        }
+
+        //Testing player getting a kill.
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            totalPlayerScore += 500;
+            totalPlayerKills += 1;
+        }
+        
     }
 
 
     public void GameOver()
     {
+        gameIsOver = true;
+        
         //hide the health and ammo section
         healthSection.SetActive(false);
         ammoSection.SetActive(false);
@@ -81,7 +123,7 @@ public class PlayerStats : MonoBehaviour
         myAudioSource.PlayOneShot(gameOverSong);
 
 
-        //Load up main menu after death (15 seconds)
+        //Load up main menu after death (35 seconds)
         StartCoroutine(GameIsOverRestarting());
     }
 
@@ -96,6 +138,7 @@ public class PlayerStats : MonoBehaviour
             SceneManager.LoadScene("MainMenu");
         }
         
+        //song is ~30 seconds long
         yield return new WaitForSeconds(35f);
         SceneManager.LoadScene("MainMenu");
     }

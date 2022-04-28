@@ -16,20 +16,17 @@ public class HealthBar : MonoBehaviour
     //Health Bar Text Value
     [Header("Health Bar Text Value")]
     public TextMeshProUGUI myHealthValue;
-
-
-    private void Awake()
+    
+    
+    private void Start()
     {
+        //checking if character is set up.
         //Game manager is not linked with player using tony's code.
         if (GameManager.Instance.playerStats.characterData == null)
         {
             Debug.Log("The character data is not set up! (GameManager.Instance.playerStats)");
         }
-    }
-
-
-    private void Start()
-    {
+        
         //Set current player's health to max player's health at the start of the game
         GameManager.Instance.playerStats.currentHealth = GameManager.Instance.playerStats.maxHealth;
         
@@ -39,7 +36,7 @@ public class HealthBar : MonoBehaviour
         //Have HealthTextValue set to player's current health(maxHealth) at start of game.
         myHealthValue.text = $"{GameManager.Instance.playerStats.currentHealth}";
         
-        
+
         
     }
 
