@@ -12,6 +12,8 @@ TagManager:
   - Big
   - item
   - Limb
+  - Undefined
+  - HitBox
   layers:
   - Default
   - TransparentFX
