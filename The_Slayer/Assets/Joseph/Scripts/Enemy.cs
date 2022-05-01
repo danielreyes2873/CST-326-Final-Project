@@ -100,10 +100,12 @@ public class Enemy : MonoBehaviour
     public void Death(){
         this.GetComponent<CapsuleCollider>().enabled = false;
 
-        // colChildren = this.gameObject.GetComponentsInChildren.<Collider>();
-        // for(var collider : Collider in colChildren) {
-        //     collider.enabled = false;
-        // }
+        // Disables all of the relative colliders within the enemy prefab
+        Collider[] coChildren = GetComponentsInChildren<Collider>();
+        foreach (var cCollider in coChildren)
+        {
+            cCollider.enabled = false;
+        }
 
         GameObject.Find("SpawnPoints").GetComponent<Spawner>().zombieKilled();
         agent.speed=0.0f;

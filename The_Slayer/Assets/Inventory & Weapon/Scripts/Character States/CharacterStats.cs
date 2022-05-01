@@ -43,7 +43,7 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
-    //TODO takeDamage
+    // Player takes damage function (referenced by the enemy)
     public void TakeDamage(int damageTaken)
     {
         if(characterData.currentHealth>0){
