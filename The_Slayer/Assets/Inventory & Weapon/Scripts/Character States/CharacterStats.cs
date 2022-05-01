@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Do not Have switch Gun Function
+/// </summary>
 public class CharacterStats : MonoBehaviour
 {
     [Header("File in here")]
@@ -16,12 +19,17 @@ public class CharacterStats : MonoBehaviour
     //different kind of weapon, different place to generate weapon
     [Header("Weapon")]
     public Transform weaponSlot;
+
+    //the place drop weapon
     public Transform dropPosition;
 
+    [Header("Weapon Slot")]
     public itemData_SO currentWeapon;
     public itemData_SO secondWeapon;
 
+    [Header("MagazineSlot")]
     public Transform MagazineSlot;
+
     private GameObject Magzine;
     private GameObject Weapon;
 
@@ -52,10 +60,9 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
-    //TODO takeDamage
-    public void TakeDamage()
+    public void TakeDamage(int damage)
     {
-
+        currentHealth -= damage;
     }
 
     public void EquipWeapon(itemData_SO weapon)
@@ -91,7 +98,7 @@ public class CharacterStats : MonoBehaviour
             //TODO:take out the second gun (add animation here if needed)
         }
 
-        //TODO: Check Weapon Type and Setup Animation
+        //Check Weapon Type and Setup Animation -- it is done in animation controller
     }
 
     //Drop first Weapon and if you have second weapon, you will take it out

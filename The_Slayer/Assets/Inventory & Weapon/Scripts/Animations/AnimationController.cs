@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//CheckItem and pick up is in the function, on the bottom
 public class AnimationController : MonoBehaviour
 {
     private PlayerMovement playerMovement;
     private Animator anim;
-    private AnimationIK animIK;
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
         anim = GetComponent<Animator>();
-        animIK = GetComponent<AnimationIK>();
     }
 
     // Update is called once per frame
@@ -35,7 +35,7 @@ public class AnimationController : MonoBehaviour
             anim.SetBool("isFire", false);
         }
 
-       if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1))
         {
             anim.SetBool("isAim", true);
         }
@@ -44,7 +44,26 @@ public class AnimationController : MonoBehaviour
         {
             anim.SetBool("isAim", false);
         }
+
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            checkItem();
+        }
+
+        if (Input.GetKeyDown(KeyCode.G) && GameManager.Instance.playerStats.secondWeapon != null)
+        {
+            GameManager.Instance.playerStats.DropWeapon();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            anim.SetTrigger("Reload");
+        }
+
+
     }
+
 
     private void layerControl()
     {
@@ -63,24 +82,47 @@ public class AnimationController : MonoBehaviour
     }
     private void walkAnimation()
     {
-        if (playerMovement.inputX != 0 || playerMovement.inputZ != 0)
+        if (Mathf.Approximately(playerMovement.inputX,0)|| Mathf.Approximately(playerMovement.inputZ,0))
         {
             anim.SetBool("isMoving", true);
             anim.SetFloat("InputX", playerMovement.inputX);
             anim.SetFloat("InputZ", playerMovement.inputZ);
-            animIK.enabled = true;
         }
         else
         {
             anim.SetBool("isMoving", false);
-            animIK.enabled = false;
         }
     }
 
-    private void OnAnimatorIK(int layerIndex)
+
+    /// <summary>
+    /// It create a sphere to check if there has item I can pick up
+    /// </summary>
+    private void checkItem()
     {
-        Debug.Log("run");
-        Debug.Log("runrunur");
+        var checkItems = Physics.OverlapSphere(transform.position + new Vector3(0, 0.9f, 0.9f), 1.2f);
+        foreach (var item in checkItems)
+        {
+            if (item.gameObject.CompareTag("item"))
+            {
+                //check if the item is weapon or not;
+                var mItem = item.GetComponent<ItemPickUp>().itemData;
+                if (mItem.itemType == ItemType.Weapon)
+                {
+                    //give weapon to player
+                    GameManager.Instance.playerStats.EquipWeapon(item.GetComponent<ItemPickUp>().itemData);
+                }
+                else
+                {
+                    //add item
+                    InventoryManager.Instance.inventoryData.AddItem(mItem, mItem.itemAmount);
+                    InventoryManager.Instance.inventoryUI.RefreshUI();
+                }
+                Destroy(item.gameObject);
+                //only allow player pick up 1 items at 1 time
+                break;
+            }
+        }
     }
 
 

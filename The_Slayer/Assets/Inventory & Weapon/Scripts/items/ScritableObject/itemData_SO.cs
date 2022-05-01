@@ -39,7 +39,7 @@ public class itemData_SO : ScriptableObject
     public int damage;
 
     public int currentMag;
-    public int spareAmmo;
+    public int SpareMagazine;
 
     //TODO: Fire
     public void Fire()
