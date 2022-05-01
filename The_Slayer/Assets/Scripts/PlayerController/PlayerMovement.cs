@@ -43,6 +43,10 @@ public class PlayerMovement : MonoBehaviour
         air
     }
 
+    [Header("Animation")]
+    public float inputX;
+    public float inputZ;
+
     [Header("Private/Debugging")]
     [SerializeField] private Vector3 velocity;
     [SerializeField] private Vector3 gravityVelocity;
@@ -58,6 +62,9 @@ public class PlayerMovement : MonoBehaviour
         defaultYPos = playerCamera.transform.localPosition.y;
     }
 
+
+
+    // Update is called once per frame
     void Update()
     {
         // Debugging
@@ -125,8 +132,8 @@ public class PlayerMovement : MonoBehaviour
             gravityVelocity.y += gravity * Time.deltaTime;
         }
         
-        float inputX = Input.GetAxis("Horizontal");
-        float inputZ = Input.GetAxis("Vertical");
+        inputX = Input.GetAxis("Horizontal");
+        inputZ = Input.GetAxis("Vertical");
 
         Vector3 move = transform.forward * inputZ + transform.right * inputX;
         if (move.magnitude > 1)

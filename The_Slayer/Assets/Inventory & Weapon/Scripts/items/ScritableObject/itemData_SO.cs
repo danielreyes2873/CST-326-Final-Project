@@ -29,6 +29,8 @@ public class itemData_SO : ScriptableObject
     /// </summary>
     [Header("Equipment")]
     public GameObject weaponPrefab;
+    public GameObject magazine;
+
     [Header("OnWorld")]
     public GameObject weaponOnWorld;
 
@@ -37,7 +39,7 @@ public class itemData_SO : ScriptableObject
     public int damage;
 
     public int currentMag;
-    public int spareAmmo;
+    public int SpareMagazine;
 
     //TODO: Fire
     public void Fire()

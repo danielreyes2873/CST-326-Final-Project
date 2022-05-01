@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public enum SlotType { BAG, WEAPON }
 
-public class SlotHolder : MonoBehaviour, IPointerClickHandler
+public class SlotHolder : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public SlotType slotType;
     public ItemUI itemUI;
@@ -19,24 +19,39 @@ public class SlotHolder : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if(itemUI.GetItemData())
+        {
+            var tooltip = InventoryManager.Instance.tooltip;
+            tooltip.SetupTooltip(itemUI.GetItemData());
+            tooltip.gameObject.SetActive(true);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        InventoryManager.Instance.tooltip.gameObject.SetActive(false);
+    }
+
     public void UseItem()
     {
         if (itemUI.GetItemData() == null) return;
 
         //if it is a heal props
-        if(itemUI.GetItemData().healProps != null && itemUI.GetItemAmount() > 0)
+        if (itemUI.GetItemData().healProps != null && itemUI.GetItemAmount() > 0)
         {
             //TODO Setup Health
             GameManager.Instance.playerStats.AddHealth(itemUI.GetItemData().healProps.healHealth);
             itemUI.Bag.itemsList[itemUI.Index].amount -= 1;
         }
 
-        UpdateIetm();
+        UpdateItem();
     }
 
-    public void UpdateIetm()
+    public void UpdateItem()
     {
-        switch(slotType)
+        switch (slotType)
         {
             case SlotType.BAG:
                 //get InventoryData_SO, and InventoryData is holding a list
@@ -50,6 +65,11 @@ public class SlotHolder : MonoBehaviour, IPointerClickHandler
 
         //show item in the backpack
         itemUI.SetupItemUI(item.itemData, item.amount);
+    }
+
+    void OnDisable()
+    {
+        InventoryManager.Instance.tooltip.gameObject.SetActive(false);
     }
 
 }
