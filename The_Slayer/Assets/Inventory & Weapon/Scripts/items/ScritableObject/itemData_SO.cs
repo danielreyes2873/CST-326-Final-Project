@@ -39,10 +39,4 @@ public class itemData_SO : ScriptableObject
     public int currentMag;
     public int spareAmmo;
 
-    //TODO: Fire
-    public void Fire()
-    {
-        if (itemType != ItemType.Weapon) return;
-    }
-
 }
