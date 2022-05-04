@@ -20,10 +20,10 @@ MonoBehaviour:
   stackable: 0
   healProps: {fileID: 0}
   coolDown: 0
-  weaponPrefab: {fileID: 1973690367320679103, guid: 71b742311c193d24abba7dc0076b78dc, type: 3}
+  weaponPrefab: {fileID: 1973690367320679103, guid: cbdde76fadf8f52448187eaca29f167b, type: 3}
   magazine: {fileID: 6378926348733971276, guid: 89e788d1815000847aab8e3bab99ff83, type: 3}
   weaponOnWorld: {fileID: 4108989889465321405, guid: cf0a192d9c215ef40bb846fd6e90d7b1, type: 3}
   gunType: 1
   damage: 0
-  currentMag: 0
+  currentAmmo: 0
   spareAmmo: 0

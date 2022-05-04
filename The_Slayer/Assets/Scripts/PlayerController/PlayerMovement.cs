@@ -10,12 +10,12 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundMask;
     public Camera playerCamera;
-    
+
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode crouchKey = KeyCode.LeftControl;
-    
+
     [Header("Headbob Parameters")]
     public float walkBobSpeed = 14f;
     public float walkBobAmount = 0.05f;
@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // Debugging
         velocity = controller.velocity;
-        
+
         GroundCheck();
         StateHandler();
         ApplyMovement();
@@ -131,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
         {
             gravityVelocity.y += gravity * Time.deltaTime;
         }
-        
+
         inputX = Input.GetAxis("Horizontal");
         inputZ = Input.GetAxis("Vertical");
 
@@ -140,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
         {
             move.Normalize();
         }
-        
+
         controller.Move(move * movementSpeed * Time.deltaTime + gravityVelocity * Time.deltaTime);
     }
 
@@ -159,7 +159,7 @@ public class PlayerMovement : MonoBehaviour
             controller.height = crouchHeight;
         }
         // Mode - Sprinting
-        else if(isGrounded && Input.GetKey(sprintKey))
+        else if (isGrounded && Input.GetKey(sprintKey))
         {
             state = MovementState.sprinting;
             movementSpeed = sprintSpd;

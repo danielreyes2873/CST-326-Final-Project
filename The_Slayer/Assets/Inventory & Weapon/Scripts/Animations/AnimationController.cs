@@ -17,10 +17,12 @@ public class AnimationController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        layerControl();
-        walkAnimation();
-        AimAndFireAnim();
-
+        if (anim != null)
+        {
+            layerControl();
+            walkAnimation();
+            AimAndFireAnim();
+        }
     }
 
     private void AimAndFireAnim()
@@ -82,7 +84,7 @@ public class AnimationController : MonoBehaviour
     }
     private void walkAnimation()
     {
-        if (Mathf.Approximately(playerMovement.inputX,0)|| Mathf.Approximately(playerMovement.inputZ,0))
+        if (Mathf.Approximately(playerMovement.inputX, 0) || Mathf.Approximately(playerMovement.inputZ, 0))
         {
             anim.SetBool("isMoving", true);
             anim.SetFloat("InputX", playerMovement.inputX);

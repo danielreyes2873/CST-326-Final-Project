@@ -27,6 +27,9 @@ public class CharacterStats : MonoBehaviour
     public itemData_SO currentWeapon;
     public itemData_SO secondWeapon;
 
+    public int currentAmmo  { get => currentWeapon?.currentAmmo ?? 0; set => currentWeapon.currentAmmo = value; }
+    public int spareAmmo { get => currentWeapon?.spareAmmo ?? 0; set => currentWeapon.spareAmmo = value; }
+
     [Header("MagazineSlot")]
     public Transform MagazineSlot;
 
@@ -44,16 +47,16 @@ public class CharacterStats : MonoBehaviour
             Debug.Log("You missed characterTemplateData");
         }
 
-        if(currentWeapon != null)
+        if (currentWeapon != null)
         {
             GenerateWeapon(currentWeapon);
         }
     }
-    
+
     //Melee Attack
     public void MeleeAttack(CharacterStats defender)
     {
-        if(currentWeapon == null)
+        if (currentWeapon == null)
         {
             var damage = characterData.meleeAttack;
             defender.currentHealth -= damage;
@@ -63,13 +66,15 @@ public class CharacterStats : MonoBehaviour
     // Player takes damage function (referenced by the enemy)
     public void TakeDamage(int damageTaken)
     {
-        if(characterData.currentHealth>0){
-            characterData.currentHealth-= damageTaken;
+        if (characterData.currentHealth > 0)
+        {
+            characterData.currentHealth -= damageTaken;
 
-            Debug.Log("You took "+ damageTaken.ToString() + " damage | Health:"+ characterData.currentHealth.ToString());
+            Debug.Log("You took " + damageTaken.ToString() + " damage | Health:" + characterData.currentHealth.ToString());
             GameObject.Find("HitEffect").GetComponent<UI>().playHitEffect();
 
-            if(characterData.currentHealth<=0){
+            if (characterData.currentHealth <= 0)
+            {
                 Debug.Log("You have died");
             }
         }
@@ -77,6 +82,10 @@ public class CharacterStats : MonoBehaviour
 
     public void EquipWeapon(itemData_SO weapon)
     {
+        if(currentWeapon == null)
+        {
+            Debug.Log("You have nothing to generate");
+        }
 
         if (weapon.weaponPrefab == null)
         {
@@ -84,13 +93,13 @@ public class CharacterStats : MonoBehaviour
             return;
         }
 
-        if(currentWeapon == null)
+        if (currentWeapon == null)
         {
             //No Gun
             currentWeapon = weapon;
             GenerateWeapon(currentWeapon);
         }
-        else if(secondWeapon == null)
+        else if (secondWeapon == null)
         {
             //one Gun
             //Destroy(weaponSlot.GetChild(0).gameObject);
@@ -122,13 +131,13 @@ public class CharacterStats : MonoBehaviour
 
         //Destory Weapon On Player
         Destroy(weaponSlot.GetChild(0).gameObject);
-        if(Magzine)
+        if (Magzine)
             Destroy(Magzine);
 
         DropCurve(currentWeapon.weaponOnWorld);
 
         //Put secondWeapon on Player's hands
-        if(secondWeapon != null)
+        if (secondWeapon != null)
         {
             currentWeapon = null;
             EquipWeapon(secondWeapon);
@@ -144,6 +153,11 @@ public class CharacterStats : MonoBehaviour
 
     private void DropCurve(GameObject weapon)
     {
+        if(dropPosition == null)
+        {
+            Debug.Log("Did not set up for drop position");
+            return;
+        }
         var gun = Instantiate(weapon, dropPosition.position, Quaternion.identity);
 
         gun.GetComponent<Rigidbody>().AddForce(GameManager.Instance.playerStats.gameObject.transform.forward * Time.deltaTime * 200f, ForceMode.Impulse);

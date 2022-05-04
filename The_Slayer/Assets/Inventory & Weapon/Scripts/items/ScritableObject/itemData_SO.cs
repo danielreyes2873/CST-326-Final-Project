@@ -33,13 +33,10 @@ public class itemData_SO : ScriptableObject
 
     [Header("OnWorld")]
     public GameObject weaponOnWorld;
-
     public GunType gunType;
-
     public int damage;
-
-    public int currentMag;
-    public int SpareMagazine;
+    public int currentAmmo;
+    public int spareAmmo;
 
     //TODO: Fire
     public void Fire()
