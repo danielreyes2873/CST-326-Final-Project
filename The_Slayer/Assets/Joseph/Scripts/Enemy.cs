@@ -21,12 +21,24 @@ public class Enemy : MonoBehaviour
     public GameObject bloodHead;
     public GameObject headExplode;
     public GameObject bloodExplode;
+    [Header("Sound")]
+    public float breathTime;
+    public float breath;
+    public AudioSource source1;
+    public AudioSource source2;
+    public AudioClip footstep;
+    public AudioClip bodyshot;
+    public AudioClip headshot;
+    public AudioClip attack;
+    public List<AudioClip> breathingClips;
+
     
     public UnityEngine.AI.NavMeshAgent agent;
     Animator enemyAnimation;
     
     void Start()
     {
+        breathTime=Random.Range(5f,15f);
         enemyAnimation=this.GetComponent<Animator>();
         agent=this.GetComponent<UnityEngine.AI.NavMeshAgent>();
         wave = GameObject.Find("SpawnPoints").GetComponent<Spawner>().currentWave;
@@ -36,6 +48,12 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         if(!dead){
+          breath+=Time.deltaTime;
+
+          if(breath>breathTime){
+            playBreath();
+            breath=0.0f;
+          }
           Vector3 playerPosition = GameObject.FindWithTag("Player").transform.position;
           if(Vector3.Distance(this.transform.position,playerPosition)<activeDistance || active || gotShot){
             active=true;
@@ -48,6 +66,9 @@ public class Enemy : MonoBehaviour
       if(!dead){
         health=health-damageDealt;
         gotShot=true;
+        source2.pitch=Random.Range(0.9f,1.1f);
+        source2.clip=bodyshot;
+        source2.Play();
         if(health<=0){
             dead=true;
             Death();
@@ -108,8 +129,12 @@ public class Enemy : MonoBehaviour
     }
 
     public void Headshot(){
+      source2.pitch=Random.Range(0.9f,1.1f);
+      source2.clip=headshot;
+      source2.Play();
       headExplode.SetActive(true);
       bloodExplode.SetActive(true);
+      Destroy(bloodExplode,3f);
       bloodExplode.transform.parent=null;
       enemyAnimation.SetTrigger("Walk");
       enemyAnimation.SetTrigger("Death");
@@ -124,5 +149,24 @@ public class Enemy : MonoBehaviour
         int spawn = Random.Range(0,powerupList.Count);
         Vector3 powerupPosition = new Vector3(0f,0.7f,0f);
         Instantiate(powerupList[spawn],this.transform.position+powerupPosition,this.transform.rotation);
+    }
+
+    public void playFootstep(){
+      source1.pitch=Random.Range(0.9f,1.1f);
+      source1.clip=footstep;
+      source1.Play();
+    }
+
+    public void playAttack(){
+      source2.pitch=Random.Range(0.9f,1.1f);
+      source2.clip=attack;
+      source2.Play();
+    }
+    public void playBreath(){
+      source2.pitch=Random.Range(0.9f,1.1f);
+      breathTime=Random.Range(10f,15f);
+      int clip = Random.Range(0,breathingClips.Count);
+      source2.clip=breathingClips[clip];
+      source2.Play();
     }
 }
