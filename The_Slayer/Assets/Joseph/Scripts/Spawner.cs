@@ -30,6 +30,7 @@ public class Spawner : MonoBehaviour
     void Update()
     {
         if(zombieCount<=0){
+            PlayerStats.totalRoundsSurvived++;
             WaveCount+=5;
             zombieCount=WaveCount;
             zombiesLeft.text=zombieCount.ToString();
@@ -57,6 +58,7 @@ public class Spawner : MonoBehaviour
         zombiesLeft.text=zombieCount.ToString();
     }    
     public void zombieKilled(){
+        PlayerStats.totalPlayerKills++;
         zombieCount--;
         UpdateZombiesLeft();
     }
