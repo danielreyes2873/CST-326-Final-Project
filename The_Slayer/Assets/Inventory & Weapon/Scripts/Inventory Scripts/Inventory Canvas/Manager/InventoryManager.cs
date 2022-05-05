@@ -10,6 +10,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
     [Header("ContainerS")]
     public ContainerUI inventoryUI;
+    public ItemTooltip tooltip;
 
     void Start()
     {

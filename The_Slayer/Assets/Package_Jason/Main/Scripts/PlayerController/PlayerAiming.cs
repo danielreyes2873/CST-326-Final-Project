@@ -99,7 +99,8 @@ public class PlayerAiming : MonoBehaviour
         if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, range))
         {
             // Environment particle effect wont play when shooting anything that isn't the environment
-            if(hit.transform.tag!="Enemy" && hit.transform.tag!="Limb" && hit.transform.tag!="Head" && hit.transform.tag!="HitBox"){
+            if(hit.transform.tag!="Enemy" && hit.transform.tag!="Limb" && hit.transform.tag!="Head" && hit.transform.tag!="HitBox")
+            {
                 GameObject impact = Instantiate(mainGunComponent.impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
                 impact.GetComponent<ParticleSystem>().Play();
                 Destroy(impact, 2f);

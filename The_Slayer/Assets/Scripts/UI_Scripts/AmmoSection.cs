@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class AmmoSection : MonoBehaviour
 {
+
     //Displaying Ammo Values
     [Header("Ammo Count Text")]
     public TextMeshProUGUI myAmmoCountText;
@@ -19,6 +20,7 @@ public class AmmoSection : MonoBehaviour
     public GameObject myPanel;
     public Image myBulletImage;
     
+
     //'lastFired' is the time you last fired a projectile.
     public float lastFired;
 
@@ -29,6 +31,23 @@ public class AmmoSection : MonoBehaviour
         //gives a full magazine to the  player
         GameManager.Instance.playerStats.currentWeapon.currentMag =
             GameManager.Instance.playerStats.currentWeapon.currentMagCap;
+        
+        //gives a full max ammo to the player
+        GameManager.Instance.playerStats.currentWeapon.spareAmmo =
+            GameManager.Instance.playerStats.currentWeapon.maxAmmo;
+
+        //Ammo Count Text 
+        myAmmoCountText.text = $"{GameManager.Instance.playerStats.currentWeapon.currentMag} / {GameManager.Instance.playerStats.currentWeapon.spareAmmo}";
+        
+        
+        
+        //Bullet Image Test (remove if does not work)
+        //displaying bullets for player weapon (if they start with one)
+        //(THIS CODE IS ALREADY WORKING WITH UPDATE CODE)
+        // for (int i = 0; i < GameManager.Instance.playerStats.currentWeapon.currentMag; i++)
+        // {
+        //     Instantiate(myBulletImage, myPanel.transform.position, Quaternion.identity, myPanel.transform);
+        // }
 
         //gives a full max ammo to the player
         GameManager.Instance.playerStats.currentWeapon.spareAmmo =
@@ -73,6 +92,24 @@ public class AmmoSection : MonoBehaviour
             DeleteAllBulletDisplay();
         }
         
+        //instantiate bullet images per ammo in current magazine
+        if (myPanel.transform.childCount < GameManager.Instance.playerStats.currentWeapon.currentMag)
+        {
+            for (int i = myPanel.transform.childCount; i < GameManager.Instance.playerStats.currentWeapon.currentMag; i++)
+            {
+                Instantiate(myBulletImage, myPanel.transform.position, Quaternion.identity, myPanel.transform);
+            }
+        }
+        
+        
+        //Delete all bullet images if you have more images than bullets in current magazine.
+        if(myPanel.transform.childCount > GameManager.Instance.playerStats.currentWeapon.currentMag)
+        {
+            Debug.Log("Bullet images" + myPanel.transform.childCount + ">" + "Ammo in mag" + GameManager.Instance.playerStats.currentWeapon.currentMag);
+            DeleteAllBulletDisplay();
+        }
+        
+        
         //---------UNCOMMENT TO TEST SHOOTING HERE------
         
         //Automatic weapon firing while holding down mouse left click. (Still able to do single shot)
@@ -109,8 +146,63 @@ public class AmmoSection : MonoBehaviour
         
         //One shoot, one bullet
         GameManager.Instance.playerStats.currentWeapon.currentMag -= 1;
+
+        //If you have a bullets in current magazine, you can shoot. else You can not.
+        if (GameManager.Instance.playerStats.currentWeapon.currentMag > 0)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                Shoot();
+            }
+        }
     }
     
+    
+    // //Delete bullet images. (IF YOU HAVE MORE BULLET IMAGES THAN BULLETS)
+    // public void DeleteAllBulletDisplay()
+    // {
+    //     Debug.Log("Destroying all bullet images");
+    //     int childs = myPanel.transform.childCount;
+    //     for (int i = childs - 1; i >= 0; i--)
+    //     {
+    //         Destroy(myPanel.transform.GetChild(i).gameObject);
+    //     }
+    // }
+    
+//     //Will remove one bullet image after shooting
+//     public void RemoveOneBulletImageAfterFiring()
+//     {
+// <<<<<<< HEAD
+//         //removing bullet from bulletPanel after a shot is fired
+//         if (GameManager.Instance.playerStats.currentWeapon.currentMag > 0)
+//         {
+//             Destroy(myPanel.transform.GetChild(GameManager.Instance.playerStats.currentWeapon.currentMag - 1).gameObject);
+//         }
+// =======
+//         //ready to fire.
+//         if (Time.time - lastFired > 1 / GameManager.Instance.playerStats.currentWeapon.fireRate)
+//         {
+//             lastFired = Time.time;
+            
+//             //Testing bullet image (remove if does not work)
+//             //removing bullet from bulletPanel after a shot is fired
+//             if (GameManager.Instance.playerStats.currentWeapon.currentMag > 0)
+//             {
+//                 Destroy(myPanel.transform.GetChild(GameManager.Instance.playerStats.currentWeapon.currentMag - 1).gameObject);
+//             }
+            
+            
+//             //One shoot, one bullet
+//             GameManager.Instance.playerStats.currentWeapon.currentMag -= 1;
+            
+//             //todo: instantiate projectile
+//             //instantiate projectile -----> ray cast projectile
+//         }
+
+//     }
+
+
+    //Used in shooting script
     //Will remove one bullet image after shooting
     public void RemoveOneBulletImageAfterFiring()
     {
@@ -119,6 +211,7 @@ public class AmmoSection : MonoBehaviour
         {
             Destroy(myPanel.transform.GetChild(GameManager.Instance.playerStats.currentWeapon.currentMag - 1).gameObject);
         }
+// >>>>>>> main
     }
     
     //Reload Testing
@@ -126,17 +219,25 @@ public class AmmoSection : MonoBehaviour
     {
         //Reloading Text
         StartCoroutine(DisplayReloadingText());
-
         // //remove a full magazine from our current ammo
         GameManager.Instance.playerStats.currentWeapon.spareAmmo -= GameManager.Instance.playerStats.currentWeapon.currentMagCap;
         //
         // //current magazine is now full
         GameManager.Instance.playerStats.currentWeapon.currentMag += GameManager.Instance.playerStats.currentWeapon.currentMagCap;
+        
+        
+        //Testing bullet images in ammo section
+        //reshow the bullet in mybulletPanel per bullet we have (CODE NOT NEEDED)
+        // for (int i = 0; i < GameManager.Instance.playerStats.currentWeapon.currentMagCap; i++)
+        // {
+        //     Instantiate(myBulletImage, myPanel.transform.position, Quaternion.identity, myPanel.transform);
+        // }
+        
     }
 
     
     //Displaying "Reloading..." Text.
-    IEnumerator DisplayReloadingText()
+    public IEnumerator DisplayReloadingText()
     {
         //Reloading Text
         reloadingText.text = "Reloading...";

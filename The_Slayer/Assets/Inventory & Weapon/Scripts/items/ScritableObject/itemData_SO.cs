@@ -29,14 +29,13 @@ public class itemData_SO : ScriptableObject
     /// </summary>
     [Header("Equipment")]
     public GameObject weaponPrefab;
+    public GameObject magazine;
+
     [Header("OnWorld")]
     public GameObject weaponOnWorld;
-
     public GunType gunType;
-
     public int damage;
-
-    public int currentMag;
+    public int currentAmmo;
     public int spareAmmo;
     
     //magazine capacity - total rounds a magazine can hold.
@@ -46,5 +45,11 @@ public class itemData_SO : ScriptableObject
     //Weapon's fireRate
     public float fireRate;
     public float reloadDelay = 1f;
+
+    //TODO: Fire
+    public void Fire()
+    {
+        if (itemType != ItemType.Weapon) return;
+    }
 
 }
