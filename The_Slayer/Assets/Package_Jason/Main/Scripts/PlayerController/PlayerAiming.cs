@@ -19,11 +19,7 @@ public class PlayerAiming : MonoBehaviour
     private Vector3 currentRotation;
     private Vector3 targetRotation;
 
-    [Header("Components")]
-    private Gun mainGunComponent;
-    private CameraRecoil _cameraRecoil;
-
-    [Space(10)]
+    [Header("Camera Movement")]
     public Transform playerCamera;
     public float mouseSensitivity = 2.8f;
     private float cameraPitch = 0.0f;
@@ -36,9 +32,19 @@ public class PlayerAiming : MonoBehaviour
     private Vector2 currentMouseDelta = Vector2.zero;
     private Vector2 currentMouseDeltaVelocity = Vector2.zero;
 
+    [Space(10)]
+    [Tooltip("Range for Raycast")]
     public int range = 50;
+    [Tooltip("Key Input")]
     public KeyCode fireKey = KeyCode.Mouse0;
-
+    [Tooltip("Fire rate and reload delay is implemented using a timestamp")]
+    private float timeStamp = 0.0f;
+    
+    [Header("Components")]
+    [SerializeField] private AmmoSection _ammoSection;
+    private Gun mainGunComponent;
+    private CameraRecoil _cameraRecoil;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -55,11 +61,17 @@ public class PlayerAiming : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(fireKey))
+        if (Input.GetKey(fireKey) && Time.time > timeStamp)
         {
+            timeStamp = Time.time + GameManager.Instance.playerStats.currentWeapon.fireRate;
             Shoot();
+            _ammoSection.Shoot();
+            if (GameManager.Instance.playerStats.currentWeapon.currentMag - 1 < 0)
+            {
+                timeStamp = Time.time + GameManager.Instance.playerStats.currentWeapon.reloadDelay;
+            }
         }
-        
+
         UpdateMouseLook();
         WeaponSway();
     }
@@ -86,14 +98,17 @@ public class PlayerAiming : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, range))
         {
-            Debug.Log(hit.transform.name);
-
             // Environment particle effect wont play when shooting anything that isn't the environment
             if(hit.transform.tag!="Enemy" && hit.transform.tag!="Limb" && hit.transform.tag!="Head" && hit.transform.tag!="HitBox")
             {
                 GameObject impact = Instantiate(mainGunComponent.impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
                 impact.GetComponent<ParticleSystem>().Play();
                 Destroy(impact, 2f);
+            }
+
+            if (hit.transform.gameObject.GetComponent<Enemy>())
+            {
+                hit.transform.gameObject.GetComponent<Enemy>().decrementHealth(GameManager.Instance.playerStats.currentWeapon.damage);
             }
         }
     }

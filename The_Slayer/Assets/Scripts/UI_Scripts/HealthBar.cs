@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Build.Content;
+// using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -58,12 +58,11 @@ public class HealthBar : MonoBehaviour
 
         //--------UNCOMMENT TO TEST PLAYER TAKING DAMAGE HERE-------------
         
-        //todo: Have enemy zombies do damage instead of 'spacebar'. Do this in "Enemy script" with same 'TakeDamage' function 
         //testing player takes damage or enemy, to then update health bar with correct value.
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TakeDamage(10);
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     TakeDamage(10);
+        // }
     }
 
 
