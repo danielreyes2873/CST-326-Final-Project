@@ -16,8 +16,10 @@ public class Enemy : MonoBehaviour
 
     private float regularSpeed = 0.3f;
     private float regularAnimationSpeed = 2.0f;
+    private float regularAttackAnimationSpeed = 2.0f;
     private float deathAnimationSpeed = 0.7f;
     private float attackDistance = 1.5f;
+
     // private float activeDistance = 5f;
 
     // public bool active = false;
@@ -98,13 +100,13 @@ public class Enemy : MonoBehaviour
                 direction.y = 0;
                 Quaternion rotation = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 5f * Time.deltaTime);
-
-                enemyAnimation.speed=regularAnimationSpeed;
+                enemyAnimation.speed=regularAttackAnimationSpeed;
                 enemyAnimation.SetTrigger("Attack");
             }
             else{
                 enemyAnimation.SetTrigger("Walk");
                 agent.speed = regularSpeed;
+                enemyAnimation.speed=regularAnimationSpeed;
             }
             }
             else{
@@ -116,8 +118,11 @@ public class Enemy : MonoBehaviour
     public void setStats(int wave){
       health +=  wave * 10;
       strength += wave * 10;
-      regularSpeed+=0.15f;
-      regularAnimationSpeed+=0.15f;
+
+      regularSpeed = Mathf.Clamp(regularSpeed+= wave*0.5f,0.3f,1.5f);
+      regularAnimationSpeed = Mathf.Clamp(regularAnimationSpeed+= wave*0.5f,2.0f,2.3f);
+      // regularSpeed+= wave * 1.5f;
+      // regularAnimationSpeed+= wave * 1.5f;
     }
 
     public bool willSpawn(){
@@ -132,11 +137,20 @@ public class Enemy : MonoBehaviour
     public void Death(){
         this.GetComponent<CapsuleCollider>().enabled = false;
 
+// <<<<<<< HEAD
+//         Collider[] coChildren = GetComponentsInChildren<Collider>();
+//          foreach (var cCollider in coChildren)
+//          {
+//              cCollider.enabled = false;
+//          }
+// =======
+        // Disables all of the relative colliders within the enemy prefab
         Collider[] coChildren = GetComponentsInChildren<Collider>();
-         foreach (var cCollider in coChildren)
-         {
-             cCollider.enabled = false;
-         }
+        foreach (var cCollider in coChildren)
+        {
+            cCollider.enabled = false;
+        }
+// >>>>>>> main
 
         GameObject.Find("SpawnPoints").GetComponent<Spawner>().zombieKilled();
         agent.speed=0.0f;

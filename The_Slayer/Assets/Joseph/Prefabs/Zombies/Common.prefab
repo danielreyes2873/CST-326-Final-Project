@@ -17113,7 +17113,7 @@ GameObject:
   - component: {fileID: 2492320419567210193}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: HitBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17127,8 +17127,8 @@ Transform:
   m_GameObject: {fileID: 5583592977609384899}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.074, y: -0.046, z: 0.003}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 0.20380905, y: 0.2, z: 0.2}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6613219780642050955}
   m_RootOrder: 5

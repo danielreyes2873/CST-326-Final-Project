@@ -12,6 +12,9 @@ TagManager:
   - Big
   - item
   - Limb
+  - Undefined
+  - HitBox
+  - magazine
   layers:
   - Default
   - TransparentFX
