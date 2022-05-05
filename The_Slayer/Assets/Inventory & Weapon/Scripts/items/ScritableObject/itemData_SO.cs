@@ -35,7 +35,7 @@ public class itemData_SO : ScriptableObject
     public GameObject weaponOnWorld;
     public GunType gunType;
     public int damage;
-    public int currentAmmo;
+    public int currentMag;
     public int spareAmmo;
     
     //magazine capacity - total rounds a magazine can hold.

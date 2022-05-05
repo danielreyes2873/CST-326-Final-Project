@@ -27,7 +27,7 @@ public class CharacterStats : MonoBehaviour
     public itemData_SO currentWeapon;
     public itemData_SO secondWeapon;
 
-    public int currentAmmo  { get => currentWeapon?.currentAmmo ?? 0; set => currentWeapon.currentAmmo = value; }
+    public int currentAmmo  { get => currentWeapon?.currentMag ?? 0; set => currentWeapon.currentMag = value; }
     public int spareAmmo { get => currentWeapon?.spareAmmo ?? 0; set => currentWeapon.spareAmmo = value; }
 
     [Header("MagazineSlot")]
