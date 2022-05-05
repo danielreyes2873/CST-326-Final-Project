@@ -21,8 +21,8 @@ public class AmmoSection : MonoBehaviour
     public Image myBulletImage;
     
 
-    //'lastFired' is the time you last fired a projectile.
-    public float lastFired;
+    // //'lastFired' is the time you last fired a projectile.
+    // public float lastFired;
 
     // Start is called before the first frame update
     void Start()
@@ -49,12 +49,6 @@ public class AmmoSection : MonoBehaviour
         //     Instantiate(myBulletImage, myPanel.transform.position, Quaternion.identity, myPanel.transform);
         // }
 
-        //gives a full max ammo to the player
-        GameManager.Instance.playerStats.currentWeapon.spareAmmo =
-            GameManager.Instance.playerStats.currentWeapon.maxAmmo;
-
-        //Ammo Count Text 
-        myAmmoCountText.text = $"{GameManager.Instance.playerStats.currentWeapon.currentMag} / {GameManager.Instance.playerStats.currentWeapon.spareAmmo}";
     }
 
     // Update is called once per frame
@@ -92,32 +86,9 @@ public class AmmoSection : MonoBehaviour
             DeleteAllBulletDisplay();
         }
         
-        //instantiate bullet images per ammo in current magazine
-        if (myPanel.transform.childCount < GameManager.Instance.playerStats.currentWeapon.currentMag)
-        {
-            for (int i = myPanel.transform.childCount; i < GameManager.Instance.playerStats.currentWeapon.currentMag; i++)
-            {
-                Instantiate(myBulletImage, myPanel.transform.position, Quaternion.identity, myPanel.transform);
-            }
-        }
         
         
-        //Delete all bullet images if you have more images than bullets in current magazine.
-        if(myPanel.transform.childCount > GameManager.Instance.playerStats.currentWeapon.currentMag)
-        {
-            Debug.Log("Bullet images" + myPanel.transform.childCount + ">" + "Ammo in mag" + GameManager.Instance.playerStats.currentWeapon.currentMag);
-            DeleteAllBulletDisplay();
-        }
-        
-        
-        //---------UNCOMMENT TO TEST SHOOTING HERE------
-        
-        //Automatic weapon firing while holding down mouse left click. (Still able to do single shot)
-        
-        // if (Input.GetMouseButton(0))
-        // {
-        //     Shoot();
-        // }
+
     }
     
     //Delete bullet images. (IF YOU HAVE MORE BULLET IMAGES THAN BULLETS)
@@ -135,7 +106,7 @@ public class AmmoSection : MonoBehaviour
     public void Shoot()
     {
         //ready to fire.
-        lastFired = Time.time;
+        // lastFired = Time.time;
 
         //Testing bullet image (remove if does not work)
         //removing bullet from bulletPanel after a shot is fired
@@ -146,60 +117,10 @@ public class AmmoSection : MonoBehaviour
         
         //One shoot, one bullet
         GameManager.Instance.playerStats.currentWeapon.currentMag -= 1;
-
-        //If you have a bullets in current magazine, you can shoot. else You can not.
-        if (GameManager.Instance.playerStats.currentWeapon.currentMag > 0)
-        {
-            if (Input.GetMouseButton(0))
-            {
-                Shoot();
-            }
-        }
+        
     }
     
-    
-    // //Delete bullet images. (IF YOU HAVE MORE BULLET IMAGES THAN BULLETS)
-    // public void DeleteAllBulletDisplay()
-    // {
-    //     Debug.Log("Destroying all bullet images");
-    //     int childs = myPanel.transform.childCount;
-    //     for (int i = childs - 1; i >= 0; i--)
-    //     {
-    //         Destroy(myPanel.transform.GetChild(i).gameObject);
-    //     }
-    // }
-    
-//     //Will remove one bullet image after shooting
-//     public void RemoveOneBulletImageAfterFiring()
-//     {
-// <<<<<<< HEAD
-//         //removing bullet from bulletPanel after a shot is fired
-//         if (GameManager.Instance.playerStats.currentWeapon.currentMag > 0)
-//         {
-//             Destroy(myPanel.transform.GetChild(GameManager.Instance.playerStats.currentWeapon.currentMag - 1).gameObject);
-//         }
-// =======
-//         //ready to fire.
-//         if (Time.time - lastFired > 1 / GameManager.Instance.playerStats.currentWeapon.fireRate)
-//         {
-//             lastFired = Time.time;
-            
-//             //Testing bullet image (remove if does not work)
-//             //removing bullet from bulletPanel after a shot is fired
-//             if (GameManager.Instance.playerStats.currentWeapon.currentMag > 0)
-//             {
-//                 Destroy(myPanel.transform.GetChild(GameManager.Instance.playerStats.currentWeapon.currentMag - 1).gameObject);
-//             }
-            
-            
-//             //One shoot, one bullet
-//             GameManager.Instance.playerStats.currentWeapon.currentMag -= 1;
-            
-//             //todo: instantiate projectile
-//             //instantiate projectile -----> ray cast projectile
-//         }
 
-//     }
 
 
     //Used in shooting script
