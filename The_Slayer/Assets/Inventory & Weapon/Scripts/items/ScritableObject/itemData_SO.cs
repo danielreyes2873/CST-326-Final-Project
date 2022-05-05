@@ -38,8 +38,13 @@ public class itemData_SO : ScriptableObject
 
     public int currentMag;
     public int spareAmmo;
-
-    public float fireRate = 1f;
+    
+    //magazine capacity - total rounds a magazine can hold.
+    public int currentMagCap;
+    //maxAmmo is total ammo the player can hold of the weapon.
+    public int maxAmmo;
+    //Weapon's fireRate
+    public float fireRate;
     public float reloadDelay = 1f;
 
 }

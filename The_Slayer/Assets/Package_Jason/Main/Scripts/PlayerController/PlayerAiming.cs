@@ -61,20 +61,15 @@ public class PlayerAiming : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Use below "if-statement" once weapon stats has an implemented "reloading" of ammo
-        // "if (GameManager.Instance.playerStats.currentWeapon.currentMag <= 0) {...}"
-        
-        // Currently referencing the UI variables rather than the gun stats
-        if (_ammoSection.currentMagazine <= 0)
-        {
-            timeStamp = Time.time + GameManager.Instance.playerStats.currentWeapon.reloadDelay;
-        }
-        
         if (Input.GetKey(fireKey) && Time.time > timeStamp)
         {
             timeStamp = Time.time + GameManager.Instance.playerStats.currentWeapon.fireRate;
             Shoot();
             _ammoSection.Shoot();
+            if (GameManager.Instance.playerStats.currentWeapon.currentMag - 1 < 0)
+            {
+                timeStamp = Time.time + GameManager.Instance.playerStats.currentWeapon.reloadDelay;
+            }
         }
 
         UpdateMouseLook();
@@ -110,7 +105,7 @@ public class PlayerAiming : MonoBehaviour
                 Destroy(impact, 2f);
             }
 
-            if (hit.transform.gameObject.name.Equals("Enemy"))
+            if (hit.transform.gameObject.GetComponent<Enemy>())
             {
                 hit.transform.gameObject.GetComponent<Enemy>().decrementHealth(GameManager.Instance.playerStats.currentWeapon.damage);
             }
