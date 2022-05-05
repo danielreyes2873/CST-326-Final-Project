@@ -43,7 +43,7 @@ public class TestScriptForUI : MonoBehaviour
     {
         
         //player connection to UI - > ammo section - > display reload text in reload function
-        StartCoroutine(playerUI.GetComponentInChildren<AmmoSection>().DisplayReloadingText());
+        // StartCoroutine(playerUI.GetComponentInChildren<AmmoSection>().DisplayReloadingText());
     }
 
     // Update is called once per frame
@@ -51,10 +51,20 @@ public class TestScriptForUI : MonoBehaviour
     {
 
 
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            TakeDamage(25);
-        }
+        //Test connection player TakeDamage()
+        // if (Input.GetKeyDown(KeyCode.H))
+        // {
+        //     TakeDamage(25);
+        // }
+        //
+        // //Test connection weapon Fire()
+        // if (Input.GetKeyDown(KeyCode.G))
+        // {
+        //     TestShotFired();
+        // }
+        
+        
+        
     }
 
 
@@ -62,5 +72,13 @@ public class TestScriptForUI : MonoBehaviour
     {
         GameManager.Instance.playerStats.currentHealth -= damage;
         playerUI.GetComponentInChildren<HealthBar>().SetHealth(GameManager.Instance.playerStats.currentHealth);
+    }
+
+
+
+    public void TestShotFired()
+    {
+        GameManager.Instance.playerStats.currentWeapon.currentMag -= 1;
+        playerUI.GetComponentInChildren<AmmoSection>().RemoveOneBulletImageAfterFiring();
     }
 }

@@ -7,13 +7,15 @@ using UnityEngine.UI;
 public class AmmoSection : MonoBehaviour
 {
     
+    //Displaying Ammo Values
     [Header("Ammo Count Text")]
     public TextMeshProUGUI myAmmoCountText;
 
+    //Display "reloading..."
     [Header("Reloading Text")] 
     public TextMeshProUGUI reloadingText;
 
-
+    //Display bullet images
     [Header("Bullet Image Panel")] 
     public GameObject myPanel;
     public Image myBulletImage;
@@ -44,11 +46,11 @@ public class AmmoSection : MonoBehaviour
         
         //Bullet Image Test (remove if does not work)
         //displaying bullets for player weapon (if they start with one)
-        //todo: hook up with weapon stats
-        for (int i = 0; i < GameManager.Instance.playerStats.currentWeapon.currentMag; i++)
-        {
-            Instantiate(myBulletImage, myPanel.transform.position, Quaternion.identity, myPanel.transform);
-        }
+        //(THIS CODE IS ALREADY WORKING WITH UPDATE CODE)
+        // for (int i = 0; i < GameManager.Instance.playerStats.currentWeapon.currentMag; i++)
+        // {
+        //     Instantiate(myBulletImage, myPanel.transform.position, Quaternion.identity, myPanel.transform);
+        // }
 
 
     }
@@ -144,6 +146,18 @@ public class AmmoSection : MonoBehaviour
     }
 
 
+    //Used in shooting script
+    //Will remove one bullet image after shooting
+    public void RemoveOneBulletImageAfterFiring()
+    {
+        //removing bullet from bulletPanel after a shot is fired
+        if (GameManager.Instance.playerStats.currentWeapon.currentMag > 0)
+        {
+            Destroy(myPanel.transform.GetChild(GameManager.Instance.playerStats.currentWeapon.currentMag - 1).gameObject);
+        }
+    }
+
+
     //Todo: Set this Reload function up in 'Weapon/Player' Script
     //Reload Testing
     private void Reload()
@@ -159,11 +173,11 @@ public class AmmoSection : MonoBehaviour
         
         
         //Testing bullet images in ammo section
-        //reshow the bullet in mybulletPanel per bullet we have
-        for (int i = 0; i < GameManager.Instance.playerStats.currentWeapon.currentMagCap; i++)
-        {
-            Instantiate(myBulletImage, myPanel.transform.position, Quaternion.identity, myPanel.transform);
-        }
+        //reshow the bullet in mybulletPanel per bullet we have (CODE NOT NEEDED)
+        // for (int i = 0; i < GameManager.Instance.playerStats.currentWeapon.currentMagCap; i++)
+        // {
+        //     Instantiate(myBulletImage, myPanel.transform.position, Quaternion.identity, myPanel.transform);
+        // }
         
     }
 
