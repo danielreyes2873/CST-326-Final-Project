@@ -469,20 +469,21 @@ MonoBehaviour:
   strength: 0
   wave: 0
   dead: 0
-  active: 0
-  gotShot: 0
   powerupList:
   - {fileID: 4139364807073410072, guid: a89330fd9c5a7934390f5050f503cc10, type: 3}
   - {fileID: 8460884467966401860, guid: a35d3deda7487024a8b509827aeaedab, type: 3}
   bloodHead: {fileID: 3775603951267397505}
   headExplode: {fileID: 9139971836770185310}
   bloodExplode: {fileID: 9217521578454509476}
+  breathTime: 0
+  breath: 0
   source1: {fileID: -7224279158485322319}
   source2: {fileID: -800604890397486158}
   footstep: {fileID: 8300000, guid: 35069199e2b084f07be079bdac283800, type: 3}
   bodyshot: {fileID: 8300000, guid: c8c678b9bef7147408eb5064f6b814c7, type: 3}
   headshot: {fileID: 8300000, guid: 39c93f87b047d4d7185589a31ad4bd5f, type: 3}
-  attack: {fileID: 8300000, guid: fb5d9e05587a04c6698ec25a37c179aa, type: 3}
+  attackClips:
+  - {fileID: 8300000, guid: fb5d9e05587a04c6698ec25a37c179aa, type: 3}
   breathingClips:
   - {fileID: 8300000, guid: 93843e7086d9f44709b96e2379a30d5b, type: 3}
   - {fileID: 8300000, guid: 50220ec055de140c5ac6e8553eb232a8, type: 3}
@@ -17207,6 +17208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e80b8b6c81354b945b17874f879eaf4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UI: {fileID: 0}
 --- !u!1 &5734014515734686582
 GameObject:
   m_ObjectHideFlags: 0
