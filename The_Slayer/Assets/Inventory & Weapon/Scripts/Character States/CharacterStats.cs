@@ -43,10 +43,19 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
-    //TODO takeDamage
-    public void TakeDamage()
+    // Player takes damage function (referenced by the enemy)
+    public void TakeDamage(int damageTaken)
     {
+        if(characterData.currentHealth>0){
+            characterData.currentHealth-= damageTaken;
 
+            Debug.Log("You took "+ damageTaken.ToString() + " damage | Health:"+ characterData.currentHealth.ToString());
+            GameObject.Find("HitEffect").GetComponent<UI>().playHitEffect();
+
+            if(characterData.currentHealth<=0){
+                Debug.Log("You have died");
+            }
+        }
     }
 
     public void EquipWeapon(itemData_SO weapon)
