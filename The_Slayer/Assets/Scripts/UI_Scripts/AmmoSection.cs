@@ -87,10 +87,10 @@ public class AmmoSection : MonoBehaviour
         
         //Automatic weapon firing while holding down mouse left click. (Still able to do single shot)
         
-        if (Input.GetMouseButton(0))
-        {
-            Shoot();
-        }
+        // if (Input.GetMouseButton(0))
+        // {
+        //     Shoot();
+        // }
     }
     
     
@@ -108,10 +108,8 @@ public class AmmoSection : MonoBehaviour
     }
     
     
-
-    //Todo: Set this Shoot function up in 'Player' Script
     //Shoot Testing
-    private void Shoot()
+    public void Shoot()
     {
         //ready to fire.
         if (Time.time - lastFired > 1 / fireRate)
@@ -140,7 +138,7 @@ public class AmmoSection : MonoBehaviour
 
     //Todo: Set this Reload function up in 'Weapon/Player' Script
     //Reload Testing
-    private void Reload()
+    public void Reload()
     {
         //Reloading Text
         StartCoroutine(DisplayReloadingText());
@@ -172,7 +170,7 @@ public class AmmoSection : MonoBehaviour
         reloadingText.text = "Reloading...";
 
         //Display "Reloading..." for 1 second.
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(GameManager.Instance.playerStats.currentWeapon.reloadDelay);
 
         //Set reloading text back to blank.
         reloadingText.text = "";

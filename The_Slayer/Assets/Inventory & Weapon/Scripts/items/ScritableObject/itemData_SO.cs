@@ -39,4 +39,7 @@ public class itemData_SO : ScriptableObject
     public int currentMag;
     public int spareAmmo;
 
+    public float fireRate = 1f;
+    public float reloadDelay = 1f;
+
 }
