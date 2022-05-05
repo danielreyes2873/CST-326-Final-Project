@@ -9,7 +9,8 @@ public class PlayerTest : MonoBehaviour
         GameObject.Find("HitEffect").GetComponent<UI>().playHitEffect();
         health--;
         if(health<=0){
-            Destroy(this.gameObject);
+            // Destroy(this.gameObject);
+            Debug.Log("You were killed!");
         }
     }
 }
