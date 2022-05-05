@@ -15,6 +15,11 @@ public class AmmoSection : MonoBehaviour
 
     [Header("Reloading Text")] 
     public TextMeshProUGUI reloadingText;
+
+
+    [Header("Bullet Image Panel")] 
+    public GameObject myPanel;
+    public Image myBulletImage;
     
     
     
@@ -47,6 +52,15 @@ public class AmmoSection : MonoBehaviour
         
         //Ammo Slider
         SetCurrentMaxMagazine(magazineCapacity);
+        
+        
+        //Bullet Image Test (remove if does not work)
+        //displaying bullets for player weapon (if they start with one)
+        //todo: hook up with weapon stats
+        for (int i = 0; i < magazineCapacity; i++)
+        {
+            Instantiate(myBulletImage, myPanel.transform.position, Quaternion.identity, myPanel.transform);
+        }
 
 
     }
@@ -104,6 +118,14 @@ public class AmmoSection : MonoBehaviour
         {
             lastFired = Time.time;
             
+            //Testing bullet image (remove if does not work)
+            //removing bullet from bulletPanel after a shot is fired
+            if (currentMagazine > 0)
+            {
+                Destroy(myPanel.transform.GetChild(currentMagazine - 1).gameObject);
+            }
+            
+            
             //One shoot, one bullet
             currentMagazine -= 1;
             
@@ -131,6 +153,15 @@ public class AmmoSection : MonoBehaviour
         
         //update ammo slider back to being full
         myAmmoSlider.value = currentMagazine;
+        
+        
+        //Testing bullet images in ammo section
+        //reshow the bullet in mybulletPanel per bullet we have
+        for (int i = 0; i < magazineCapacity; i++)
+        {
+            Instantiate(myBulletImage, myPanel.transform.position, Quaternion.identity, myPanel.transform);
+        }
+        
     }
 
     

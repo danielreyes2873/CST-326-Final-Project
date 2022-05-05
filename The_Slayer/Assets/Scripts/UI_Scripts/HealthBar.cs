@@ -22,6 +22,13 @@ public class HealthBar : MonoBehaviour
 
     private void Start()
     {
+        
+        //checking if character is set up
+        if (GameManager.Instance.playerStats.characterData == null)
+        {
+            Debug.Log("the character data is not set up! (GameManager.Instance.playerStats");
+        }
+        
         //Set current player's health to max player's health at the start of the game
         GameManager.Instance.playerStats.currentHealth = GameManager.Instance.playerStats.maxHealth;
         
