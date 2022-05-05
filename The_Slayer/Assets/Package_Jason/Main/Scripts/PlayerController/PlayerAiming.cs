@@ -61,7 +61,7 @@ public class PlayerAiming : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(fireKey) && Time.time > timeStamp)
+        if (Input.GetKey(fireKey) && Time.time > timeStamp && GameManager.Instance.playerStats.currentWeapon.currentMag > 0)
         {
             timeStamp = Time.time + GameManager.Instance.playerStats.currentWeapon.fireRate;
             Shoot();

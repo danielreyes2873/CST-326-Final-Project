@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Package_Jason/PlayerControllerUpdate3.unity
     guid: 72677babeb87d034e88bdd42f2385941
+  - enabled: 1
+    path: Assets/Package_Jason/Debug_Test_Scene.unity
+    guid: bf3057e47070c05449ea0531b1f39710
   m_configObjects: {}
