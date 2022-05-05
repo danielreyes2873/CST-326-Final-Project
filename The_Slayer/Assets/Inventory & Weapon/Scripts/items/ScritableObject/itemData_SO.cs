@@ -37,6 +37,13 @@ public class itemData_SO : ScriptableObject
     public int damage;
     public int currentAmmo;
     public int spareAmmo;
+    
+    //magazine capacity - total rounds a magazine can hold.
+    public int currentMagCap;
+    //maxAmmo is total ammo the player can hold of the weapon.
+    public int maxAmmo;
+    //Weapon's fireRate
+    public float fireRate;
 
     //TODO: Fire
     public void Fire()
