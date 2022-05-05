@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e9b5f34ed1842244a2b192779cb65e5, type: 3}
   m_Name: CharacterData Example
   m_EditorClassIdentifier: 
-  currentHealth: 10
-  maxHealth: 20
+  currentHealth: 100
+  maxHealth: 100
+  speed: 0
   defense: 0
   killPoint: 0
-  attack: 0
+  skillAttack: 0
+  meleeAttack: 0
   currentLevel: 1
   maxLevel: 10
   currentExp: 0

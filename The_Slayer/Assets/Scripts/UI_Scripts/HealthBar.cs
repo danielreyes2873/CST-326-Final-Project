@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Build.Content;
+// using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +22,13 @@ public class HealthBar : MonoBehaviour
 
     private void Start()
     {
+        
+        //checking if character is set up
+        if (GameManager.Instance.playerStats.characterData == null)
+        {
+            Debug.Log("the character data is not set up! (GameManager.Instance.playerStats");
+        }
+        
         //Set current player's health to max player's health at the start of the game
         GameManager.Instance.playerStats.currentHealth = GameManager.Instance.playerStats.maxHealth;
         
@@ -51,12 +58,11 @@ public class HealthBar : MonoBehaviour
 
         //--------UNCOMMENT TO TEST PLAYER TAKING DAMAGE HERE-------------
         
-        //todo: Have enemy zombies do damage instead of 'spacebar'. Do this in "Enemy script" with same 'TakeDamage' function 
         //testing player takes damage or enemy, to then update health bar with correct value.
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TakeDamage(10);
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     TakeDamage(10);
+        // }
     }
 
 

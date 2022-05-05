@@ -38,7 +38,7 @@ public class Gun : MonoBehaviour
         
         targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, returnSpeed * Time.deltaTime);
         currentRotation = Vector3.Slerp(currentRotation, targetRotation, snappiness * Time.fixedDeltaTime);
-        transform.localRotation = Quaternion.Euler(currentRotation);
+        //transform.localRotation = Quaternion.Euler(currentRotation);
     }
 
     public void PlayMuzzleFlash()
