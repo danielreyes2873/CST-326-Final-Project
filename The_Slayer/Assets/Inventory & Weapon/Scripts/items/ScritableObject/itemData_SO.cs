@@ -44,6 +44,7 @@ public class itemData_SO : ScriptableObject
     public int maxAmmo;
     //Weapon's fireRate
     public float fireRate;
+    public float reloadDelay = 1f;
 
     //TODO: Fire
     public void Fire()
