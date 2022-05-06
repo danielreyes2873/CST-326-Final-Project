@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     private int headshotPoints=20;
     private int normalPoints=10;
 
-    private float regularSpeed = 0.3f;
+    private float regularSpeed = 0.9f;
     private float regularAnimationSpeed = 2.0f;
     private float regularAttackAnimationSpeed = 2.0f;
     private float deathAnimationSpeed = 0.7f;
@@ -119,10 +119,17 @@ public class Enemy : MonoBehaviour
       health +=  wave * 10;
       strength += wave * 10;
 
-      regularSpeed = Mathf.Clamp(regularSpeed+= wave*0.5f,0.3f,1.5f);
-      regularAnimationSpeed = Mathf.Clamp(regularAnimationSpeed+= wave*0.5f,2.0f,2.3f);
-      // regularSpeed+= wave * 1.5f;
-      // regularAnimationSpeed+= wave * 1.5f;
+      if(wave>=5){
+
+      }
+      else{
+      // regularSpeed = regularSpeed+= wave*0.5f;
+      // regularAnimationSpeed = regularAnimationSpeed+= wave*0.5f;
+      // regularSpeed = Mathf.Clamp(regularSpeed+= wave*0.5f,0.3f,1.5f);
+      // regularAnimationSpeed = Mathf.Clamp(regularAnimationSpeed+= wave*0.5f,2.0f,2.3f);
+      regularSpeed+= wave * 0.2f;
+      regularAnimationSpeed+= wave * 0.2f;
+      }
     }
 
     public bool willSpawn(){

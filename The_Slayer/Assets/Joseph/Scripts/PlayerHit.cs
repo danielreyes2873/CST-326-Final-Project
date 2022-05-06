@@ -10,6 +10,9 @@ using UnityEngine;
 public class PlayerHit : MonoBehaviour
 {
     public GameObject UI;
+    public int commonStrength=5;
+    public int ghoulStrength=2;
+
 
     public void Start(){
         UI = GameObject.Find("PlayerUI");
@@ -20,7 +23,13 @@ public class PlayerHit : MonoBehaviour
         if(other.tag=="Player"){
 // <<<<<<< HEAD
             if(GameObject.Find("Player")!=null && GameManager.Instance.playerStats.currentHealth>0){
-                 GameManager.Instance.playerStats.currentHealth-=5;
+                 if(this.transform.parent.gameObject.name.Contains("Common")){
+                     GameManager.Instance.playerStats.currentHealth-=commonStrength;
+                 }
+                 else if (this.name.Contains("Ghoul")){
+                     GameManager.Instance.playerStats.currentHealth-=ghoulStrength;
+                 }
+                 
                  UI.GetComponentInChildren<HealthBar>().SetHealth(GameManager.Instance.playerStats.currentHealth);
                  GameObject.Find("HitEffect").GetComponent<UI>().playHitEffect();
 // =======

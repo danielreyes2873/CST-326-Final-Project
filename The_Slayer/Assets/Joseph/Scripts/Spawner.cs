@@ -10,6 +10,7 @@ public class Spawner : MonoBehaviour
     public List<Transform> spawnPoints;
     public int zombieCount=5;
     public int WaveCount=5;
+    public int additionalZombies=2;
     public int currentWave=1;
     public int enemiesSpawnable=1;
     public float timeBetweenWaves=8f;
@@ -31,7 +32,7 @@ public class Spawner : MonoBehaviour
     {
         if(zombieCount<=0){
             PlayerStats.totalRoundsSurvived++;
-            WaveCount+=5;
+            WaveCount+=additionalZombies;
             zombieCount=WaveCount;
             zombiesLeft.text=zombieCount.ToString();
             currentWave++;

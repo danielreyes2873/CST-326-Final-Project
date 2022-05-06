@@ -6,10 +6,10 @@ public class Ghoul : MonoBehaviour
 {
     [Header("Enemy Attributes")]
     public int health=30;
-    public float speed=0.3f;
+    private float speed=1.0f;
     public int strength=5;
     public bool isDamaged=false;
-    private float regularSpeed = 2.0f;
+    private float regularSpeed = 5.5f;
     private float deathAnimationSpeed = 0.7f;
     private float attackDistance = 1.8f;
     public bool dead=false;
@@ -45,9 +45,10 @@ public class Ghoul : MonoBehaviour
     public void decrementHealth(int weaponStrength){
       health=health-10;
       if(health<=0 &&!dead){
+        this.GetComponent<CapsuleCollider>().enabled = false;
         GameObject.Find("SpawnPoints").GetComponent<Spawner>().zombieKilled();
         agent.speed=0.0f;
-        this.GetComponent<UnityEngine.AI.NavMeshAgent>().isStopped = false;
+        this.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
         enemyAnimation.speed=deathAnimationSpeed;
         enemyAnimation.SetTrigger("Death");
         Destroy(this.gameObject,5f);

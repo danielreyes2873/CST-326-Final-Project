@@ -38,7 +38,8 @@ public class RaycastTest : MonoBehaviour
                     if(hit.transform.name=="BigZombie(Clone)"){
                         hit.transform.GetComponent<BigZombie>().decrementHealth(weaponStrength);
                     }
-                    else if(hit.transform.name=="Ghoul(Clone)"){
+                    else if(hit.transform.name.Contains("Ghoul")){
+                        Debug.Log("hit the ghoul");
                         hit.transform.GetComponent<Ghoul>().decrementHealth(weaponStrength);
                     }
                     else{
