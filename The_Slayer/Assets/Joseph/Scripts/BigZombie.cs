@@ -9,7 +9,7 @@ public class BigZombie : MonoBehaviour
     public float speed=0.5f;
     public int strength;
     public bool dead=false;
-    private float regularSpeed = 0.5f;
+    private float regularSpeed = 0.9f;
     private float regularAnimationSpeed = 1.0f;
     private float attackAnimationSpeed = 1.2f;
     private float deathAnimationSpeed = 0.5f;

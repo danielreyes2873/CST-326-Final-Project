@@ -15,6 +15,7 @@ TagManager:
   - Undefined
   - HitBox
   - magazine
+  - clip
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - Player
   - Water
   - UI
-  - 
+  - Weapon
   - 
   - 
   - 

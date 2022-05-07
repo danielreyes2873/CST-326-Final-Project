@@ -10,6 +10,7 @@ public class RaycastTest : MonoBehaviour
     public ParticleSystem brains;
     public ParticleSystem limb;
     public GameObject bulletHolePrefab;
+    public GameObject bloodP;
     // public GameObject bulletWoundPrefab;
     Camera cam;
 
@@ -20,7 +21,7 @@ public class RaycastTest : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButtonDown(0)){ 
+        if (Input.GetMouseButtonDown(0) && GameManager.Instance.playerStats.currentWeapon.currentMag > 0){ 
             Ray ray=cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if(Physics.Raycast(ray, out hit, 1000f)){ 
@@ -46,7 +47,11 @@ public class RaycastTest : MonoBehaviour
                         hit.transform.GetComponent<Enemy>().decrementHealth(weaponStrength);
                     }
 
-                    Instantiate(blood,hit.point,Quaternion.LookRotation(hit.normal));
+                    // Instantiate(blood,hit.point,Quaternion.LookRotation(hit.normal));
+                    GameObject p= Instantiate(bloodP,hit.point + hit.normal *0.1f ,Quaternion.LookRotation(-hit.normal)) as GameObject;
+                    p.transform.parent= hit.transform;
+                    Destroy(p,1f);
+
                 }
                 else if(hit.transform.tag=="Head"){
                     Debug.Log("Hit the head");

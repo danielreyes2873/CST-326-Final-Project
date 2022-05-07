@@ -28,24 +28,7 @@ public class Spawner : MonoBehaviour
         }
         StartCoroutine(Spawn(WaveCount));
     }
-    void Update()
-    {
-        if(zombieCount<=0){
-            PlayerStats.totalRoundsSurvived++;
-            WaveCount+=additionalZombies;
-            zombieCount=WaveCount;
-            zombiesLeft.text=zombieCount.ToString();
-            currentWave++;
-            wave.text=currentWave.ToString();
-            if(currentWave>2){
-                enemiesSpawnable=3;
-            }
-            if(currentWave>4){
-                enemiesSpawnable=3;
-            }
-            StartCoroutine(Spawn(WaveCount));
-        }
-    }
+
     IEnumerator Spawn(int zombies){
         yield return new WaitForSeconds(timeBetweenWaves);
         for(int x=0;x<zombies;x++){
@@ -62,5 +45,24 @@ public class Spawner : MonoBehaviour
         PlayerStats.totalPlayerKills++;
         zombieCount--;
         UpdateZombiesLeft();
+        if(zombieCount<=0){
+            setNextWave();
+        }
+    }
+
+    public void setNextWave(){
+            PlayerStats.totalRoundsSurvived++;
+            WaveCount+=additionalZombies;
+            zombieCount=WaveCount;
+            zombiesLeft.text=zombieCount.ToString();
+            currentWave++;
+            wave.text=currentWave.ToString();
+            if(currentWave>2){
+                enemiesSpawnable=3;
+            }
+            if(currentWave>4){
+                enemiesSpawnable=3;
+            }
+            StartCoroutine(Spawn(WaveCount));
     }
 }

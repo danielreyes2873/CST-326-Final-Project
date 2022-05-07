@@ -10,13 +10,16 @@ public class Enemy : MonoBehaviour
     public int strength;
     public int wave;
     public bool dead=false;
+    private bool isRunning = false;
 
     private int headshotPoints=20;
     private int normalPoints=10;
 
     private float regularSpeed = 0.9f;
+    private float runningSpeed = 2.6f;
     private float regularAnimationSpeed = 2.0f;
     private float regularAttackAnimationSpeed = 2.0f;
+    private float runningAnimationSpeed = 2.0f;
     private float deathAnimationSpeed = 0.7f;
     private float attackDistance = 1.5f;
 
@@ -45,6 +48,8 @@ public class Enemy : MonoBehaviour
 
     public UnityEngine.AI.NavMeshAgent agent;
     Animator enemyAnimation;
+
+    Vector3 playerPosition;
     
     void Start()
     {
@@ -53,6 +58,17 @@ public class Enemy : MonoBehaviour
         agent=this.GetComponent<UnityEngine.AI.NavMeshAgent>();
         wave = GameObject.Find("SpawnPoints").GetComponent<Spawner>().currentWave;
         setStats(wave-1);
+
+        if(wave>=6){
+          isRunning=true;
+          enemyAnimation.SetTrigger("Run");
+        }
+        else if(wave>=3){
+          if(Random.Range(0,5)>=2){
+            isRunning=true;
+            enemyAnimation.SetTrigger("Run");
+          }
+        }
     }
 
     void Update()
@@ -64,7 +80,7 @@ public class Enemy : MonoBehaviour
             playBreath();
             breath=0.0f;
           }
-          Vector3 playerPosition = GameObject.FindWithTag("Player").transform.position;
+          playerPosition = GameObject.FindWithTag("Player").transform.position;
           // if(Vector3.Distance(this.transform.position,playerPosition)<activeDistance || active || gotShot){
           //   active=true;
             ActiveEnemy(); 
@@ -91,28 +107,41 @@ public class Enemy : MonoBehaviour
 
     public void ActiveEnemy(){
             if(GameManager.Instance.playerStats.currentHealth>0){
-                Vector3 playerPosition = GameObject.FindWithTag("Player").transform.position;
-                agent.SetDestination(playerPosition);
+                // Vector3 playerPosition = GameObject.FindWithTag("Player").transform.position;
+                //agent.SetDestination(playerPosition);
 
-            if(Vector3.Distance(this.transform.position,playerPosition)<=attackDistance){
+              if(Vector3.Distance(this.transform.position,playerPosition)<=attackDistance){
                 //makes enemy face the player
+                agent.updatePosition=false;
                 Vector3 direction = playerPosition-this.transform.position;
                 direction.y = 0;
                 Quaternion rotation = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 5f * Time.deltaTime);
                 enemyAnimation.speed=regularAttackAnimationSpeed;
                 enemyAnimation.SetTrigger("Attack");
-            }
-            else{
+              }
+              else {
+                if(isRunning==false){
+                agent.updatePosition=true;
+                agent.SetDestination(playerPosition);
                 enemyAnimation.SetTrigger("Walk");
                 agent.speed = regularSpeed;
                 enemyAnimation.speed=regularAnimationSpeed;
-            }
+                }
+                else{
+                  agent.updatePosition=true;
+                  agent.SetDestination(playerPosition);
+                  enemyAnimation.SetTrigger("Run");
+                  agent.speed = runningSpeed;
+                  enemyAnimation.speed=1.0f;
+                }
+             }
             }
             else{
               enemyAnimation.SetTrigger("Walk");
               enemyAnimation.speed=1.0f;
             }
+            
     }
 
     public void setStats(int wave){

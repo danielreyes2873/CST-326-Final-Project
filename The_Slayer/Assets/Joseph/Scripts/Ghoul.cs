@@ -7,14 +7,17 @@ public class Ghoul : MonoBehaviour
     [Header("Enemy Attributes")]
     public int health=30;
     private float speed=1.0f;
-    public int strength=5;
-    public bool isDamaged=false;
-    private float regularSpeed = 5.5f;
+    private int strength=5;
+    private float regularSpeed = 3.5f;
     private float deathAnimationSpeed = 0.7f;
-    private float attackDistance = 1.8f;
+    private float attackDistance = 1.5f;
     public bool dead=false;
+    private float stopTimer=0.0f;
+    private float timeToStop=0.3f;
+    private bool Attacking=false;
     public UnityEngine.AI.NavMeshAgent agent;
     Animator enemyAnimation;
+    Vector3 playerPosition;
 
     void Start(){
         enemyAnimation=this.GetComponent<Animator>();
@@ -22,22 +25,36 @@ public class Ghoul : MonoBehaviour
 
     void Update(){
         if(!dead){
+            
         if(GameObject.FindWithTag("Player")!=null){
-        Vector3 playerPosition = GameObject.FindWithTag("Player").transform.position;
-        agent.SetDestination(playerPosition);
+           playerPosition = GameObject.FindWithTag("Player").transform.position;
+        // agent.SetDestination(playerPosition);
 
         if(Vector3.Distance(this.transform.position, playerPosition)<attackDistance){
+            agent.updatePosition=false;
+            agent.SetDestination(playerPosition);
             Vector3 direction = playerPosition-this.transform.position;
             direction.y = 0;
             Quaternion rotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 5f * Time.deltaTime);
             enemyAnimation.SetTrigger("Attack");
-            isDamaged=true;
-            
+            Attacking=true;
         }
         else{
+            if(Attacking==true){
+                agent.speed=0;
+                stopTimer+=Time.deltaTime;
+                if(stopTimer>=timeToStop){
+                    Attacking=false;
+                    stopTimer=0.0f;
+                }
+            }
+            else{
+            agent.updatePosition=true;
+            agent.SetDestination(playerPosition);
             enemyAnimation.SetTrigger("Run");
             agent.speed=regularSpeed;
+            }
         }
         }
         }
@@ -54,9 +71,5 @@ public class Ghoul : MonoBehaviour
         Destroy(this.gameObject,5f);
         dead=true;
       }
-    }
-
-    bool AnimationPlaying(string name){
-        return enemyAnimation.GetCurrentAnimatorStateInfo(0).IsName(name);
     }
 }
