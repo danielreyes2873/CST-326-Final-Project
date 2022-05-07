@@ -375,10 +375,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8696080476417094922, guid: 1cb54f12c001cd341bd7e3cfd2178b08, type: 3}
-      propertyPath: startNewGame
-      value: Debug_Test_Scene
-      objectReference: {fileID: 0}
     - target: {fileID: 8696080476710788325, guid: 1cb54f12c001cd341bd7e3cfd2178b08, type: 3}
       propertyPath: m_Name
       value: Canvas
