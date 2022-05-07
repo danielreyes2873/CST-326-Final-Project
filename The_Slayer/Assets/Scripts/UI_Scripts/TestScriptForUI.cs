@@ -52,11 +52,11 @@ public class TestScriptForUI : MonoBehaviour
 
 
         //Test connection player TakeDamage()
-        // if (Input.GetKeyDown(KeyCode.H))
-        // {
-        //     TakeDamage(25);
-        // }
-        //
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            TakeDamage(25);
+        }
+        
         // //Test connection weapon Fire()
         // if (Input.GetKeyDown(KeyCode.G))
         // {
