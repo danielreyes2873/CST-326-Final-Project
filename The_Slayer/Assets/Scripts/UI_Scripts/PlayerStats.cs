@@ -49,7 +49,7 @@ public class PlayerStats : MonoBehaviour
     public TextMeshProUGUI TABdisplaytotalPlayerHeadshots;
 
     //game over boolean
-    private bool gameIsOver;
+    public bool gameIsOver;
     
     
     // Start is called before the first frame update
@@ -65,7 +65,7 @@ public class PlayerStats : MonoBehaviour
     void Update()
     {
         //if player dies (0 health), run game over function
-        if (GameManager.Instance.playerStats.currentHealth <= 0)
+        if (GameManager.Instance.playerStats.currentHealth <= 0 && gameIsOver == false)
         {
             GameOver();
         }

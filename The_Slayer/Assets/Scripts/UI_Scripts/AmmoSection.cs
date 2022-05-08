@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class AmmoSection : MonoBehaviour
@@ -19,6 +20,15 @@ public class AmmoSection : MonoBehaviour
     [Header("Bullet Image Panel")] 
     public GameObject myPanel;
     public Image myBulletImage;
+
+    //weapon Reload Audio
+    [Header("Weapon Reload Sound")] 
+    private AudioSource myAudioSource;
+    public AudioClip pistolReload;
+    public AudioClip pistolFiring;
+
+    public AudioMixerGroup pistolReloadingMix;
+    public AudioMixerGroup pistolFiringMix;
     
 
     // //'lastFired' is the time you last fired a projectile.
@@ -38,9 +48,10 @@ public class AmmoSection : MonoBehaviour
 
         //Ammo Count Text 
         myAmmoCountText.text = $"{GameManager.Instance.playerStats.currentWeapon.currentMag} / {GameManager.Instance.playerStats.currentWeapon.spareAmmo}";
-        
-        
-        
+
+
+        myAudioSource = GetComponent<AudioSource>();
+
         //Bullet Image Test (remove if does not work)
         //displaying bullets for player weapon (if they start with one)
         //(THIS CODE IS ALREADY WORKING WITH UPDATE CODE)
@@ -114,6 +125,12 @@ public class AmmoSection : MonoBehaviour
         {
             Destroy(myPanel.transform.GetChild(GameManager.Instance.playerStats.currentWeapon.currentMag - 1).gameObject);
         }
+
+        //switch to firing sound mixer
+        myAudioSource.outputAudioMixerGroup = pistolFiringMix;
+        
+        //Shoot sound
+        myAudioSource.PlayOneShot(pistolFiring);
         
         //One shoot, one bullet
         GameManager.Instance.playerStats.currentWeapon.currentMag -= 1;
@@ -146,6 +163,7 @@ public class AmmoSection : MonoBehaviour
         // //current magazine is now full
         GameManager.Instance.playerStats.currentWeapon.currentMag += GameManager.Instance.playerStats.currentWeapon.currentMagCap;
         
+
         
         //Testing bullet images in ammo section
         //reshow the bullet in mybulletPanel per bullet we have (CODE NOT NEEDED)
@@ -162,9 +180,18 @@ public class AmmoSection : MonoBehaviour
     {
         //Reloading Text
         reloadingText.text = "Reloading...";
+        
 
+        
         //Display "Reloading..." for 1 second.
         yield return new WaitForSeconds(GameManager.Instance.playerStats.currentWeapon.reloadDelay);
+
+        //Switch sound mixer group to pistol reload one.
+        myAudioSource.outputAudioMixerGroup = pistolReloadingMix;
+        
+        //reloading pistol audio clip, play once.
+        myAudioSource.PlayOneShot(pistolReload);
+        
 
         //Set reloading text back to blank.
         reloadingText.text = "";

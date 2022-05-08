@@ -13,6 +13,8 @@ public class MenuController : MonoBehaviour
     [Header("Levels To Load")]
     //Name of the first level Scene
     public string startNewGame;
+    //Name of credits scene
+    public string creditsScene;
     
     public AudioClip startNewGameGunSound;
 
@@ -49,6 +51,12 @@ public class MenuController : MonoBehaviour
         yield return new WaitForSeconds(4);
         //load up first level
         SceneManager.LoadScene(startNewGame);
+    }
+
+
+    public void LoadCreditScene()
+    {
+        SceneManager.LoadScene(creditsScene);
     }
 
 
