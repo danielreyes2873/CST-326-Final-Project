@@ -17,4 +17,16 @@ public class EventHandler
     {
         EnemyDeadEvent?.Invoke(score);
     }
+
+    public static event Action ChangeWeapon;
+    public static void CallChangeWeapon()
+    {
+        ChangeWeapon?.Invoke();
+    }
+
+    public static event Action Reloading;
+    public static void CallReloading()
+    {
+        Reloading?.Invoke();
+    }
 }

@@ -8,11 +8,11 @@ public class CameraRecoil : MonoBehaviour
 {
     [Header("Gun Component")]
     public Gun mainGun;
-    
+
     [Header("Rotations")]
     private Vector3 currentRotation;
     private Vector3 targetRotation;
-    
+
     [Header("Hipfire Recoil")]
     public float recoilX;
     public float recoilY;
@@ -24,6 +24,22 @@ public class CameraRecoil : MonoBehaviour
 
     private void Start()
     {
+
+    }
+
+    private void OnEnable()
+    {
+        EventHandler.ChangeWeapon += OnAfterChangeWeapon;
+    }
+
+    private void OnDisable()
+    {
+        EventHandler.ChangeWeapon -= OnAfterChangeWeapon;
+    }
+
+    private void OnAfterChangeWeapon()
+    {
+        mainGun = GameManager.Instance.playerStats.currentWeapon.weaponPrefab.GetComponent<Gun>();
         recoilX = mainGun.recoilX;
         recoilY = mainGun.recoilY;
         recoilZ = mainGun.recoilZ;

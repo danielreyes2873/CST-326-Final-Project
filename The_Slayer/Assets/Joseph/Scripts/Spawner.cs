@@ -20,7 +20,7 @@ public class Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        wave.text=currentWave.ToString();
+        wave.text = currentWave.ToString();
         zombiesLeft.text=zombieCount.ToString();
         foreach (GameObject spawnpoint in GameObject.FindGameObjectsWithTag("Spawnpoint")){
            spawnPoints.Add(spawnpoint.GetComponent<Transform>());    

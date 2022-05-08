@@ -50,6 +50,7 @@ public class CharacterStats : MonoBehaviour
         if (currentWeapon != null)
         {
             GenerateWeapon(currentWeapon);
+            EventHandler.CallChangeWeapon();
         }
     }
 
@@ -117,6 +118,7 @@ public class CharacterStats : MonoBehaviour
             //TODO:take out the second gun (add animation here if needed)
         }
 
+        EventHandler.CallChangeWeapon();
         //Check Weapon Type and Setup Animation -- it is done in animation controller
     }
 
@@ -131,6 +133,7 @@ public class CharacterStats : MonoBehaviour
 
         //Destory Weapon On Player
         Destroy(weaponSlot.GetChild(0).gameObject);
+
         if (Magzine)
             Destroy(Magzine);
 
@@ -159,6 +162,8 @@ public class CharacterStats : MonoBehaviour
             return;
         }
         var gun = Instantiate(weapon, dropPosition.position, Quaternion.identity);
+
+        gun.GetComponent<ItemPickUp>().itemTemp = currentWeapon;
 
         gun.GetComponent<Rigidbody>().AddForce(GameManager.Instance.playerStats.gameObject.transform.forward * Time.deltaTime * 200f, ForceMode.Impulse);
     }
