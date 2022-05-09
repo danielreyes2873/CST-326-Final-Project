@@ -150,10 +150,9 @@ public class PlayerAiming : MonoBehaviour
                 Destroy(impact, 2f);
             }
 
-            if (hit.transform.gameObject.GetComponent<Enemy>())
-            {
-                hit.transform.gameObject.GetComponent<Enemy>().decrementHealth(GameManager.Instance.playerStats.currentWeapon.damage);
-            }
+            GameObject.Find("Main Camera").GetComponent<RaycastTest>().Hit(hit);
+
+            
         }
     }
 

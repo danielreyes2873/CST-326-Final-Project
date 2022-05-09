@@ -10,41 +10,25 @@ public class Spawner : MonoBehaviour
     public List<Transform> spawnPoints;
     public int zombieCount=5;
     public int WaveCount=5;
+    public int additionalZombies=2;
     public int currentWave=1;
-    public int enemiesSpawnable=1;
+    private int enemiesSpawnable;
     public float timeBetweenWaves=8f;
     public float timeBetweenSpawns=2f;
+    public int maxZombies=20;
     public List<GameObject> enemyList;
     public TextMeshProUGUI zombiesLeft;
     public TextMeshProUGUI wave;
     // Start is called before the first frame update
     void Start()
     {
-        // wave.text = currentWave.ToString();
-        // zombiesLeft.text=zombieCount.ToString();
+        enemiesSpawnable=3;
+        wave.text=currentWave.ToString();
+        zombiesLeft.text=zombieCount.ToString();
         foreach (GameObject spawnpoint in GameObject.FindGameObjectsWithTag("Spawnpoint")){
            spawnPoints.Add(spawnpoint.GetComponent<Transform>());    
         }
         StartCoroutine(Spawn(WaveCount));
-    }
-    void Update()
-    {
-        if(zombieCount<=0)
-        {
-            PlayerStats.totalRoundsSurvived++;
-            WaveCount+=5;
-            zombieCount=WaveCount;
-            //zombiesLeft.text=zombieCount.ToString();
-            currentWave++;
-            // wave.text=currentWave.ToString();
-            if(currentWave>2){
-                enemiesSpawnable=3;
-            }
-            if(currentWave>4){
-                enemiesSpawnable=3;
-            }
-            StartCoroutine(Spawn(WaveCount));
-        }
     }
     IEnumerator Spawn(int zombies){
         yield return new WaitForSeconds(timeBetweenWaves);
@@ -62,5 +46,24 @@ public class Spawner : MonoBehaviour
         PlayerStats.totalPlayerKills++;
         zombieCount--;
         UpdateZombiesLeft();
+        if(zombieCount<=0){
+            setNextWave();
+        }
+    }
+
+    public void setNextWave(){
+            PlayerStats.totalRoundsSurvived++;
+            WaveCount = Mathf.Clamp(WaveCount + additionalZombies, 0, maxZombies);
+            zombieCount=WaveCount;
+            zombiesLeft.text=zombieCount.ToString();
+            currentWave++;
+            wave.text=currentWave.ToString();
+            if(currentWave<3){
+                enemiesSpawnable=3;
+            }
+            else{
+                enemiesSpawnable=4;
+            }
+            StartCoroutine(Spawn(WaveCount));
     }
 }
