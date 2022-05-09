@@ -29,4 +29,16 @@ public class EventHandler
     {
         Reloading?.Invoke();
     }
+
+    public static event Action OpenInventory;
+    public static void CallInventory()
+    {
+        OpenInventory?.Invoke();
+    }
+
+    public static event Action CloseInventory;
+    public static void CallCloseInventory()
+    {
+        CloseInventory?.Invoke();
+    }
 }

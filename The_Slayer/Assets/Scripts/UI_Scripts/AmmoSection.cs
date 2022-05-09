@@ -97,7 +97,7 @@ public class AmmoSection : MonoBehaviour
             DeleteAllBulletDisplay();
         }
 
-        if(Input.GetKeyDown(KeyCode.R) && GameManager.Instance.playerStats.currentWeapon.spareAmmo > 0)
+        if(Input.GetKeyDown(KeyCode.R) && GameManager.Instance.playerStats.currentWeapon.spareAmmo > 0 && GameManager.Instance.playerStats.currentWeapon.currentMag < GameManager.Instance.playerStats.currentWeapon.currentMagCap)
         {
             Reload();
         }

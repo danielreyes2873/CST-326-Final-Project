@@ -7,5 +7,8 @@ public class CloseInventory : MonoBehaviour
     public void CloseBackpack()
     {
         transform.parent.gameObject.SetActive(false);
+        EventHandler.CallCloseInventory();
     }
+
+
 }

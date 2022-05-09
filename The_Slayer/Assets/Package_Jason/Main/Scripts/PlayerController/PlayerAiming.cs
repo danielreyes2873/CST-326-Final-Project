@@ -59,12 +59,28 @@ public class PlayerAiming : MonoBehaviour
     {
         EventHandler.ChangeWeapon += OnAfterWeaponChange;
         EventHandler.Reloading += OnReloading;
+        EventHandler.OpenInventory += OnInventoryOpen;
+        EventHandler.CloseInventory += OnInventoryClose;
     }
 
     private void OnDisable()
     {
         EventHandler.ChangeWeapon -= OnAfterWeaponChange;
         EventHandler.Reloading -= OnReloading;
+        EventHandler.OpenInventory -= OnInventoryOpen;
+        EventHandler.CloseInventory -= OnInventoryClose;
+    }
+
+    private void OnInventoryClose()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    private void OnInventoryOpen()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     private void OnReloading()
@@ -80,7 +96,7 @@ public class PlayerAiming : MonoBehaviour
     }
 
     private void OnAfterWeaponChange()
-    {   
+    {
         mainGun = GameManager.Instance.playerStats.currentWeapon.weaponPrefab;
         mainGunComponent = mainGun.GetComponent<Gun>();
         _cameraRecoil = GetComponentInChildren<CameraRecoil>();
@@ -114,7 +130,7 @@ public class PlayerAiming : MonoBehaviour
 
         Quaternion targetRotation = rotationX * rotationY;
 
-        //mainGun.transform.localRotation = Quaternion.Slerp(mainGun.transform.localRotation, targetRotation, smooth * Time.deltaTime);
+        mainGun.transform.localRotation = Quaternion.Slerp(mainGun.transform.localRotation, targetRotation, smooth * Time.deltaTime);
     }
 
     void Shoot()
