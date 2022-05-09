@@ -22,10 +22,9 @@ public class Powerup : MonoBehaviour
     {   
         if(other.tag=="Player"){
             if(powerupName=="Ammo"){
-                Debug.Log("Picked up Ammo Powerup!");
+                
             }
             else if(powerupName=="Money"){
-                Debug.Log("Picked up Money Powerup!");
                 PlayerStats.totalPlayerScore+=powerupPoints;
 
             }

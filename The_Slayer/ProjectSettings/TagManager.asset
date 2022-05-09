@@ -15,7 +15,7 @@ TagManager:
   - Undefined
   - HitBox
   - magazine
-  - clip
+  - JTrigger
   layers:
   - Default
   - TransparentFX
@@ -29,8 +29,8 @@ TagManager:
   - 
   - Ground
   - 
-  - 
-  - 
+  - IgnoreNavmesh
+  - Enemy
   - 
   - 
   - 

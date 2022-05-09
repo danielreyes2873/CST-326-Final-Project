@@ -13,6 +13,8 @@ public class PlayerHit : MonoBehaviour
     public GameObject DI;
     private int commonStrength=5;
     private int ghoulStrength=2;
+    public string enemyName;
+    private GameObject [] enemies;
 
 
     public void Start(){
@@ -23,20 +25,21 @@ public class PlayerHit : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {   
         if(other.tag=="Player"){
-            Debug.Log("hit player");
 // <<<<<<< HEAD
             if(GameManager.Instance.playerStats.currentHealth>0){
-                //  if(this.transform.parent.gameObject.name.Contains("Common")){
-                //      GameManager.Instance.playerStats.currentHealth-=commonStrength;
-                //  }
-                //  else if (this.name.Contains("Ghoul")){
-                //      GameManager.Instance.playerStats.currentHealth-=ghoulStrength;
-                //  }
+                 if(enemyName.Contains("Common")){
+                     GameManager.Instance.playerStats.currentHealth-=commonStrength;
+                 }
+                 else if (enemyName.Contains("Ghoul")){
+                     GameManager.Instance.playerStats.currentHealth-=ghoulStrength;
+                 }
 
-                 GameManager.Instance.playerStats.currentHealth-=commonStrength;
+                //  GameManager.Instance.playerStats.currentHealth-=commonStrength;
 
                  UI.GetComponentInChildren<HealthBar>().SetHealth(GameManager.Instance.playerStats.currentHealth);
                  GameObject.Find("HitEffect").GetComponent<UI>().playHitEffect();
+
+
 
                 //  DI.GetComponent<DamageIndication>().setPlayer(this.transform);
 // =======
@@ -44,6 +47,20 @@ public class PlayerHit : MonoBehaviour
 //               // GameObject.Find("Player2").GetComponent<PlayerTest>().Hit();
 //               GameObject.Find("Player2").GetComponent<CharacterStats>().TakeDamage(5);
 // >>>>>>> main
+            }
+            else{
+                EndGame();
+            }
+            
+        }
+    }
+    private void EndGame(){
+        foreach (GameObject enemies in GameObject.FindGameObjectsWithTag("Enemy")){
+            if(enemies.transform.name.Contains("Common")){
+            enemies.GetComponent<Enemy>().playerDie();
+            }
+            else{
+                enemies.GetComponent<Ghoul>().playerDie();
             }
         }
     }
