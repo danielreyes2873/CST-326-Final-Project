@@ -187,4 +187,5 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.color = new Color(0.0f, 1.0f, 0.0f, 0.35f);
         Gizmos.DrawSphere(groundCheck.position, groundDistance);
     }
+    
 }

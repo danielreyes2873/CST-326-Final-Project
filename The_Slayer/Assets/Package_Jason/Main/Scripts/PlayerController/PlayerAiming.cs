@@ -10,11 +10,11 @@ public class PlayerAiming : MonoBehaviour
     public GameObject mainGun;
     [Header("Secondary")]
     public GameObject secondaryGun;
-    
+
     [Header("Weapon Sway")]
     public float smooth;
     public float swayMultiplier;
-    
+
     [Header("Rotations")]
     private Vector3 currentRotation;
     private Vector3 targetRotation;
@@ -26,9 +26,9 @@ public class PlayerAiming : MonoBehaviour
 
     public bool mouseSmoothing = false;
     [Range(0.0f, 0.5f)] public float mouseSmoothTime = 0.03f;
-    
+
     public bool lockCursor = true;
-    
+
     private Vector2 currentMouseDelta = Vector2.zero;
     private Vector2 currentMouseDeltaVelocity = Vector2.zero;
 
@@ -39,18 +39,15 @@ public class PlayerAiming : MonoBehaviour
     public KeyCode fireKey = KeyCode.Mouse0;
     [Tooltip("Fire rate and reload delay is implemented using a timestamp")]
     private float timeStamp = 0.0f;
-    
+
     [Header("Components")]
     [SerializeField] private AmmoSection _ammoSection;
     private Gun mainGunComponent;
     private CameraRecoil _cameraRecoil;
-    
+    private bool reload = false;
     // Start is called before the first frame update
     void Start()
     {
-        mainGunComponent = mainGun.GetComponent<Gun>();
-        _cameraRecoil = GetComponentInChildren<CameraRecoil>();
-        
         if (lockCursor)
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -58,10 +55,57 @@ public class PlayerAiming : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        EventHandler.ChangeWeapon += OnAfterWeaponChange;
+        EventHandler.Reloading += OnReloading;
+        EventHandler.OpenInventory += OnInventoryOpen;
+        EventHandler.CloseInventory += OnInventoryClose;
+    }
+
+    private void OnDisable()
+    {
+        EventHandler.ChangeWeapon -= OnAfterWeaponChange;
+        EventHandler.Reloading -= OnReloading;
+        EventHandler.OpenInventory -= OnInventoryOpen;
+        EventHandler.CloseInventory -= OnInventoryClose;
+    }
+
+    private void OnInventoryClose()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    private void OnInventoryOpen()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    private void OnReloading()
+    {
+        StartCoroutine(StartReload());
+    }
+
+    IEnumerator StartReload()
+    {
+        reload = true;
+        yield return new WaitForSeconds(GameManager.Instance.playerStats.currentWeapon.reloadDelay);
+        reload = false;
+    }
+
+    private void OnAfterWeaponChange()
+    {
+        mainGun = GameManager.Instance.playerStats.currentWeapon.weaponPrefab;
+        mainGunComponent = mainGun.GetComponent<Gun>();
+        _cameraRecoil = GetComponentInChildren<CameraRecoil>();
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(fireKey) && Time.time > timeStamp && GameManager.Instance.playerStats.currentWeapon.currentMag > 0)
+        if (Input.GetKey(fireKey) && Time.time > timeStamp && GameManager.Instance.playerStats.currentWeapon.currentMag > 0 && !reload)
         {
             timeStamp = Time.time + GameManager.Instance.playerStats.currentWeapon.fireRate;
             Shoot();
@@ -73,19 +117,19 @@ public class PlayerAiming : MonoBehaviour
         }
 
         UpdateMouseLook();
-        WeaponSway();
+        //WeaponSway();
     }
 
     void WeaponSway()
     {
         float mouseX = Input.GetAxisRaw("Mouse X") * swayMultiplier;
         float mouseY = Input.GetAxisRaw("Mouse Y") * swayMultiplier;
-        
+
         Quaternion rotationX = Quaternion.AngleAxis(-mouseY, Vector3.right);
         Quaternion rotationY = Quaternion.AngleAxis(mouseX, Vector3.up);
 
         Quaternion targetRotation = rotationX * rotationY;
-        
+
         mainGun.transform.localRotation = Quaternion.Slerp(mainGun.transform.localRotation, targetRotation, smooth * Time.deltaTime);
     }
 
@@ -94,12 +138,12 @@ public class PlayerAiming : MonoBehaviour
         _cameraRecoil.RecoilFire();
         mainGunComponent.RecoilFire();
         mainGunComponent.PlayMuzzleFlash();
-        
+
         RaycastHit hit;
         if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, range))
         {
             // Environment particle effect wont play when shooting anything that isn't the environment
-            if(hit.transform.tag!="Enemy" && hit.transform.tag!="Limb" && hit.transform.tag!="Head" && hit.transform.tag!="HitBox")
+            if (hit.transform.tag != "Enemy" && hit.transform.tag != "Limb" && hit.transform.tag != "Head" && hit.transform.tag != "HitBox")
             {
                 GameObject impact = Instantiate(mainGunComponent.impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
                 impact.GetComponent<ParticleSystem>().Play();
@@ -132,6 +176,6 @@ public class PlayerAiming : MonoBehaviour
             playerCamera.localEulerAngles = Vector3.right * cameraPitch;
             transform.Rotate(Vector3.up * mouseDelta.x * mouseSensitivity);
         }
-        
+
     }
 }

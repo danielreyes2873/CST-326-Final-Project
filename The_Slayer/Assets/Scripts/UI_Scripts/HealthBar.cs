@@ -38,8 +38,6 @@ public class HealthBar : MonoBehaviour
         //Have HealthTextValue set to player's current health(maxHealth) at start of game.
         myHealthValue.text = $"{GameManager.Instance.playerStats.currentHealth}";
         
-        
-        
     }
 
     private void Update()

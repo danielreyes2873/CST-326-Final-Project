@@ -20,8 +20,8 @@ public class Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        wave.text=currentWave.ToString();
-        zombiesLeft.text=zombieCount.ToString();
+        // wave.text = currentWave.ToString();
+        // zombiesLeft.text=zombieCount.ToString();
         foreach (GameObject spawnpoint in GameObject.FindGameObjectsWithTag("Spawnpoint")){
            spawnPoints.Add(spawnpoint.GetComponent<Transform>());    
         }
@@ -29,13 +29,14 @@ public class Spawner : MonoBehaviour
     }
     void Update()
     {
-        if(zombieCount<=0){
+        if(zombieCount<=0)
+        {
             PlayerStats.totalRoundsSurvived++;
             WaveCount+=5;
             zombieCount=WaveCount;
-            zombiesLeft.text=zombieCount.ToString();
+            //zombiesLeft.text=zombieCount.ToString();
             currentWave++;
-            wave.text=currentWave.ToString();
+            // wave.text=currentWave.ToString();
             if(currentWave>2){
                 enemiesSpawnable=3;
             }
@@ -55,7 +56,7 @@ public class Spawner : MonoBehaviour
         }   
     }
     public void UpdateZombiesLeft(){
-        zombiesLeft.text=zombieCount.ToString();
+        //zombiesLeft.text=zombieCount.ToString();
     }    
     public void zombieKilled(){
         PlayerStats.totalPlayerKills++;

@@ -27,7 +27,7 @@ public class CharacterStats : MonoBehaviour
     public itemData_SO currentWeapon;
     public itemData_SO secondWeapon;
 
-    public int currentAmmo  { get => currentWeapon?.currentMag ?? 0; set => currentWeapon.currentMag = value; }
+    public int currentAmmo { get => currentWeapon?.currentMag ?? 0; set => currentWeapon.currentMag = value; }
     public int spareAmmo { get => currentWeapon?.spareAmmo ?? 0; set => currentWeapon.spareAmmo = value; }
 
     [Header("MagazineSlot")]
@@ -50,9 +50,17 @@ public class CharacterStats : MonoBehaviour
         if (currentWeapon != null)
         {
             GenerateWeapon(currentWeapon);
+            EventHandler.CallChangeWeapon();
         }
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            SwitchWeapon();
+        }
+    }
     //Melee Attack
     public void MeleeAttack(CharacterStats defender)
     {
@@ -82,7 +90,7 @@ public class CharacterStats : MonoBehaviour
 
     public void EquipWeapon(itemData_SO weapon)
     {
-        if(currentWeapon == null)
+        if (currentWeapon == null)
         {
             Debug.Log("You have nothing to generate");
         }
@@ -117,6 +125,7 @@ public class CharacterStats : MonoBehaviour
             //TODO:take out the second gun (add animation here if needed)
         }
 
+        EventHandler.CallChangeWeapon();
         //Check Weapon Type and Setup Animation -- it is done in animation controller
     }
 
@@ -131,6 +140,7 @@ public class CharacterStats : MonoBehaviour
 
         //Destory Weapon On Player
         Destroy(weaponSlot.GetChild(0).gameObject);
+
         if (Magzine)
             Destroy(Magzine);
 
@@ -151,14 +161,31 @@ public class CharacterStats : MonoBehaviour
         //TODO: Check Weapon Type and Setup Animation
     }
 
+    public void SwitchWeapon()
+    {
+        if(secondWeapon == null)    return;
+
+        var tempWeapon = secondWeapon;
+        secondWeapon = currentWeapon;
+        currentWeapon = null;
+
+        Destroy(weaponSlot.GetChild(0).gameObject);
+        if (Magzine)
+            Destroy(Magzine);
+
+        EquipWeapon(tempWeapon);
+    }
+
     private void DropCurve(GameObject weapon)
     {
-        if(dropPosition == null)
+        if (dropPosition == null)
         {
             Debug.Log("Did not set up for drop position");
             return;
         }
         var gun = Instantiate(weapon, dropPosition.position, Quaternion.identity);
+
+        gun.GetComponent<ItemPickUp>().itemTemp = currentWeapon;
 
         gun.GetComponent<Rigidbody>().AddForce(GameManager.Instance.playerStats.gameObject.transform.forward * Time.deltaTime * 200f, ForceMode.Impulse);
     }

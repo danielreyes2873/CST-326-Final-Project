@@ -19,15 +19,17 @@ public class InventoryManager : Singleton<InventoryManager>
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Tab))
+        if(Input.GetKeyDown(KeyCode.B))
         {
             if (transform.GetChild(0).gameObject.activeInHierarchy == true)
             {
                 transform.GetChild(0).gameObject.SetActive(false);
+                EventHandler.CallCloseInventory();
             }
             else
             {
                 transform.GetChild(0).gameObject.SetActive(true);
+                EventHandler.CallInventory();
             }
         }
     }

@@ -96,10 +96,12 @@ public class AmmoSection : MonoBehaviour
             // Debug.Log("Bullet images" + myPanel.transform.childCount + ">" + "Ammo in mag" + GameManager.Instance.playerStats.currentWeapon.currentMag);
             DeleteAllBulletDisplay();
         }
-        
-        
-        
 
+        if(Input.GetKeyDown(KeyCode.R) && GameManager.Instance.playerStats.currentWeapon.spareAmmo > 0 && GameManager.Instance.playerStats.currentWeapon.currentMag < GameManager.Instance.playerStats.currentWeapon.currentMagCap)
+        {
+            Reload();
+        }
+        
     }
     
     //Delete bullet images. (IF YOU HAVE MORE BULLET IMAGES THAN BULLETS)
@@ -155,13 +157,25 @@ public class AmmoSection : MonoBehaviour
     //Reload Testing
     public void Reload()
     {
+        EventHandler.CallReloading();
         //Reloading Text
         StartCoroutine(DisplayReloadingText());
         // //remove a full magazine from our current ammo
-        GameManager.Instance.playerStats.currentWeapon.spareAmmo -= GameManager.Instance.playerStats.currentWeapon.currentMagCap;
-        //
+
+        var Ammo = (GameManager.Instance.playerStats.currentWeapon.currentMagCap - GameManager.Instance.playerStats.currentWeapon.currentMag);
+
+        if(GameManager.Instance.playerStats.currentWeapon.spareAmmo >= Ammo)
+        {
+            GameManager.Instance.playerStats.currentWeapon.spareAmmo -= Ammo;
+            GameManager.Instance.playerStats.currentWeapon.currentMag += Ammo;
+        }
+        else
+        {
+            GameManager.Instance.playerStats.currentWeapon.currentMag += GameManager.Instance.playerStats.currentWeapon.spareAmmo;
+            GameManager.Instance.playerStats.currentWeapon.spareAmmo = 0;
+        }
+        
         // //current magazine is now full
-        GameManager.Instance.playerStats.currentWeapon.currentMag += GameManager.Instance.playerStats.currentWeapon.currentMagCap;
         
 
         

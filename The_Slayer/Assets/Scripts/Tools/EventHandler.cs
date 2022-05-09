@@ -17,4 +17,28 @@ public class EventHandler
     {
         EnemyDeadEvent?.Invoke(score);
     }
+
+    public static event Action ChangeWeapon;
+    public static void CallChangeWeapon()
+    {
+        ChangeWeapon?.Invoke();
+    }
+
+    public static event Action Reloading;
+    public static void CallReloading()
+    {
+        Reloading?.Invoke();
+    }
+
+    public static event Action OpenInventory;
+    public static void CallInventory()
+    {
+        OpenInventory?.Invoke();
+    }
+
+    public static event Action CloseInventory;
+    public static void CallCloseInventory()
+    {
+        CloseInventory?.Invoke();
+    }
 }
