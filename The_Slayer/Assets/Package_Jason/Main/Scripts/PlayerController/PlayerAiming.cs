@@ -106,7 +106,7 @@ public class PlayerAiming : MonoBehaviour
     {
         mainGun = GameManager.Instance.playerStats.currentWeapon.weaponPrefab;
         mainGunComponent = mainGun.GetComponent<Gun>();
-        _cameraRecoil = GetComponentInChildren<CameraRecoil>();
+        _cameraRecoil = FindObjectOfType<CameraRecoil>();
     }
 
     // Update is called once per frame

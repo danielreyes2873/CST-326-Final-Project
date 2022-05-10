@@ -375,14 +375,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8696080476417094965, guid: 1cb54f12c001cd341bd7e3cfd2178b08, type: 3}
-      propertyPath: m_Volume
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8696080476417094965, guid: 1cb54f12c001cd341bd7e3cfd2178b08, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 4046000285552755104, guid: 00408924b22c6c448b5a2a61a7701d89, type: 2}
     - target: {fileID: 8696080476710788325, guid: 1cb54f12c001cd341bd7e3cfd2178b08, type: 3}
       propertyPath: m_Name
       value: Canvas

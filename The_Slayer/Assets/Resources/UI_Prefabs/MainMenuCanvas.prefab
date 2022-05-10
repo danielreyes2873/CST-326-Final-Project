@@ -488,7 +488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackScreen: {fileID: 343904571}
-  startNewGame: Debug_Test_Scene
+  startNewGame: Level 2 - Tunnels - Joseph
   creditsScene: CreditScene
   startNewGameGunSound: {fileID: 8300000, guid: 3e10ba179019cec409ba2107b899854c, type: 3}
 --- !u!82 &8696080476417094965
@@ -500,10 +500,10 @@ AudioSource:
   m_GameObject: {fileID: 8696080476417094964}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4046000285552755104, guid: 00408924b22c6c448b5a2a61a7701d89, type: 2}
   m_audioClip: {fileID: 8300000, guid: c00745a492533d5418b26a9f01423567, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.25
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0

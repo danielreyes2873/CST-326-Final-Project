@@ -7,7 +7,7 @@ public class RigisterPlayer : MonoBehaviour
 {
     // Start is called before the first frame update
     private CharacterStats playerStats;
-    void Start()
+    void Awake()
     {
         playerStats = GetComponent<CharacterStats>();
         GameManager.Instance.RigisterPlayer(playerStats);

@@ -34,9 +34,9 @@ public class CharacterStats : MonoBehaviour
     public Transform MagazineSlot;
 
     private GameObject Magzine;
-    private GameObject Weapon;
+    public GameObject Weapon;
 
-    void Awake()
+    void Start()
     {
         if (characterTemplateData != null)
         {
