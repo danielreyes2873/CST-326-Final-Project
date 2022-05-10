@@ -615,7 +615,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1730364312705124473}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -1372625422
   m_Radius: 0.6
   m_Speed: 3.5
   m_Acceleration: 100
@@ -2100,6 +2100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UI: {fileID: 0}
+  DI: {fileID: 0}
+  enemyName: Big
 --- !u!1 &7276668080151880030
 GameObject:
   m_ObjectHideFlags: 0

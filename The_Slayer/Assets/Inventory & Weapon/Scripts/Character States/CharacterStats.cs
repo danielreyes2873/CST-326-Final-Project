@@ -234,5 +234,7 @@ public class CharacterStats : MonoBehaviour
         Weapon.transform.Find("magazine").gameObject.SetActive(true);
     }
 
+    
+
 
 }

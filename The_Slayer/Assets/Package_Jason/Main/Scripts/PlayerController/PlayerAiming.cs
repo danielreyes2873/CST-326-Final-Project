@@ -45,6 +45,13 @@ public class PlayerAiming : MonoBehaviour
     private Gun mainGunComponent;
     private CameraRecoil _cameraRecoil;
     private bool reload = false;
+    private RaycastTest _raycastTest;
+
+    private void Awake()
+    {
+        _raycastTest = GetComponentInChildren<RaycastTest>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -150,10 +157,11 @@ public class PlayerAiming : MonoBehaviour
                 Destroy(impact, 2f);
             }
 
-            if (hit.transform.gameObject.GetComponent<Enemy>())
-            {
-                hit.transform.gameObject.GetComponent<Enemy>().decrementHealth(GameManager.Instance.playerStats.currentWeapon.damage);
-            }
+            _raycastTest.Hit(hit);
+
+            // GameObject.Find("Main Camera").GetComponent<RaycastTest>().Hit(hit);
+
+            
         }
     }
 
