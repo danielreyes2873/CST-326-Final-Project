@@ -47,4 +47,10 @@ public class EventHandler
     {
         PlayerDead?.Invoke();
     }
+
+    public static event Action AfterPlayerRigister;
+    public static void CallPlayerRigister()
+    {
+        AfterPlayerRigister?.Invoke();
+    }
 }
