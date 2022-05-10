@@ -139,6 +139,12 @@ public class PlayerStats : MonoBehaviour
         
         //song is ~30 seconds long
         yield return new WaitForSeconds(35);
+        
+        totalPlayerScore = 0;
+        totalPlayerKills = 0;
+        totalPlayerHeadshots = 0;
+        totalRoundsSurvived = 0;
+        
         SceneManager.LoadScene("MainMenu");
     }
     
