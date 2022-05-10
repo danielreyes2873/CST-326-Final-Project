@@ -15,6 +15,8 @@ TagManager:
   - Undefined
   - HitBox
   - magazine
+  - clip
+  - Door
   layers:
   - Default
   - TransparentFX
