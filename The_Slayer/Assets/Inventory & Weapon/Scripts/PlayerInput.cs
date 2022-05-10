@@ -4,9 +4,25 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
+    private bool isDead = false;
+    private void OnEnable()
+    {
+        EventHandler.PlayerDead += OnPlayerDead;
+    }
 
+    private void OnDisable()
+    {
+        EventHandler.PlayerDead -= OnPlayerDead;
+    }
+
+    private void OnPlayerDead()
+    {
+        isDead = true;
+    }
     private void Update()
     {
+        if (isDead) return;
+
         if (Input.GetKeyDown(KeyCode.F))
         {
             checkItem();
@@ -14,6 +30,10 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G) && GameManager.Instance.playerStats.secondWeapon != null)
         {
             GameManager.Instance.playerStats.DropWeapon();
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            GameManager.Instance.playerStats.SwitchWeapon();
         }
 
     }

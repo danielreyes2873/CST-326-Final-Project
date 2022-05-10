@@ -101,7 +101,7 @@ public class PlayerStats : MonoBehaviour
     public void GameOver()
     {
         gameIsOver = true;
-        
+        EventHandler.CallPlayerDead();
         //hide the health and ammo section
         healthSection.SetActive(false);
         ammoSection.SetActive(false);

@@ -56,10 +56,7 @@ public class CharacterStats : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.L))
-        {
-            SwitchWeapon();
-        }
+
     }
     //Melee Attack
     public void MeleeAttack(CharacterStats defender)

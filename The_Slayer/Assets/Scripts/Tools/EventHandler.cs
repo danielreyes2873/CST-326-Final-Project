@@ -41,4 +41,10 @@ public class EventHandler
     {
         CloseInventory?.Invoke();
     }
+
+    public static event Action PlayerDead;
+    public static void CallPlayerDead()
+    {
+        PlayerDead?.Invoke();
+    }
 }

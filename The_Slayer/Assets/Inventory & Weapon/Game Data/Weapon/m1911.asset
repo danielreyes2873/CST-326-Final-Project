@@ -25,8 +25,8 @@ MonoBehaviour:
   weaponOnWorld: {fileID: 7300181187457996123, guid: c39bb161309e71d458f70d80f511be50, type: 3}
   gunType: 0
   damage: 10
-  currentMag: 11
-  spareAmmo: 111
+  currentMag: 10
+  spareAmmo: 40
   currentMagCap: 11
   maxAmmo: 111
   fireRate: 0.23
