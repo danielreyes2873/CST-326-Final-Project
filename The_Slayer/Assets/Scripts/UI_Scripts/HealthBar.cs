@@ -22,7 +22,7 @@ public class HealthBar : MonoBehaviour
 
     private void Start()
     {
-        
+
         //checking if character is set up
         if (GameManager.Instance.playerStats.characterData == null)
         {
