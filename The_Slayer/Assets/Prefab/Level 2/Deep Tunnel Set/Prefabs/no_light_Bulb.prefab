@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 15.92, y: 3.16, z: 25.24}
   m_LocalScale: {x: 120.43997, y: 80.15972, z: 120.43999}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7813002249194801385}
   m_RootOrder: 0
@@ -51,6 +52,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -107,10 +109,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7813002250667706031}
   - {fileID: 7813002250664347143}
   - {fileID: 7813002249319189616}
+  - {fileID: 7813002250667706031}
   - {fileID: 7813002250578076062}
   - {fileID: 7813002249300544094}
   - {fileID: 7813002249194801385}
@@ -148,6 +151,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.006175995, y: 0.0261, z: -0.0009994507}
   m_LocalScale: {x: 0.008302891, y: 0.012475094, z: 0.00830289}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8767820338371880585}
   m_Father: {fileID: 7813002249130167625}
@@ -172,6 +176,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -224,13 +229,13 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7813002249194801384}
   serializedVersion: 2
-  m_Mass: 2
+  m_Mass: 1000
   m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!59 &7813002249194801382
 HingeJoint:
@@ -299,6 +304,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.006175995, y: 0.0512, z: -0.0009994507}
   m_LocalScale: {x: 0.008302891, y: 0.012475094, z: 0.00830289}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7813002249130167625}
   m_RootOrder: 4
@@ -322,6 +328,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -374,13 +381,13 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7813002249300544065}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 1000
   m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!59 &7813002249300544088
 HingeJoint:
@@ -447,9 +454,10 @@ Transform:
   m_LocalRotation: {x: -0.6861959, y: -0, z: -0, w: 0.7274169}
   m_LocalPosition: {x: 2.6514778, y: -3.3643513, z: -0.4863701}
   m_LocalScale: {x: 0.36183, y: 0.36183, z: 0.23108272}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7813002249130167625}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -86.66, y: 0, z: 0}
 --- !u!33 &7813002249319189619
 MeshFilter:
@@ -470,6 +478,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -544,6 +553,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.006175995, y: 0.0764, z: -0.0009994507}
   m_LocalScale: {x: 0.008302891, y: 0.012475094, z: 0.00830289}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7813002249130167625}
   m_RootOrder: 3
@@ -567,6 +577,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -619,13 +630,13 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7813002250578076036}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 1000
   m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!59 &7813002250578076063
 HingeJoint:
@@ -692,9 +703,10 @@ Transform:
   m_LocalRotation: {x: -0.050156645, y: -0, z: -0, w: 0.9987414}
   m_LocalPosition: {x: 0.87547684, y: 0.05896759, z: -0.56998444}
   m_LocalScale: {x: 0.1197543, y: 0.07756131, z: 0.03955053}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7813002249130167625}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 80.91, y: 0, z: 0}
 --- !u!33 &7813002250664347138
 MeshFilter:
@@ -715,6 +727,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -790,9 +803,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.006175995, y: 0.1016, z: -0.0009994507}
   m_LocalScale: {x: 0.008302891, y: 0.012475094, z: 0.00830289}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7813002249130167625}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7813002250667706024
 MeshFilter:
@@ -813,6 +827,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -865,13 +880,13 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7813002250667706030}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 1000
   m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!59 &7813002250667706025
 HingeJoint:
