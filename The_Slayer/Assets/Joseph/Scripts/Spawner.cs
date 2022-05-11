@@ -40,7 +40,7 @@ public class Spawner : MonoBehaviour
         }   
     }
     public void UpdateZombiesLeft(){
-        //zombiesLeft.text=zombieCount.ToString();
+        zombiesLeft.text=zombieCount.ToString();
     }    
     public void zombieKilled(){
         PlayerStats.totalPlayerKills++;
@@ -65,5 +65,11 @@ public class Spawner : MonoBehaviour
                 enemiesSpawnable=4;
             }
             StartCoroutine(Spawn(WaveCount));
+    }
+
+    public void AllSpawnsAvailable(){
+        foreach (GameObject spawnpoint in GameObject.FindGameObjectsWithTag("Spawnpoint")){
+           spawnPoints.Add(spawnpoint.GetComponent<Transform>());    
+        }
     }
 }

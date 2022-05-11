@@ -8,5 +8,6 @@ public class TriggerSpawn : MonoBehaviour
        private void OnTriggerEnter(Collider other)
     {  
        spawn2.SetActive(true);
+       GameObject.Find("SpawnPoints").GetComponent<Spawner>().AllSpawnsAvailable();
     }
 }
