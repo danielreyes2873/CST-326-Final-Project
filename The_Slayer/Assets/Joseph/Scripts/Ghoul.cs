@@ -115,7 +115,7 @@ public class Ghoul : MonoBehaviour
         this.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
         // enemyAnimation.speed=deathAnimationSpeed;
         // enemyAnimation.SetTrigger("Death");
-        Destroy(this.gameObject,5f);
+        Destroy(this.gameObject,8f);
         dead=true;
         EnableRagdoll();
     }
