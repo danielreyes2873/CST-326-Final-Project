@@ -56,17 +56,32 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float characterHeight;
     [SerializeField] private float crouchHeight = 1f;
 
+    private bool isDead = false;
     void Awake()
     {
         characterHeight = controller.height;
         defaultYPos = playerCamera.transform.localPosition.y;
     }
 
+    private void OnEnable()
+    {
+        EventHandler.PlayerDead += OnPlayerDead;
+    }
 
+    private void OnDisable()
+    {
+        EventHandler.PlayerDead -= OnPlayerDead;
+    }
+
+    private void OnPlayerDead()
+    {
+        isDead = true;
+    }
 
     // Update is called once per frame
     void Update()
     {
+        if(isDead) return;
         // Debugging
         velocity = controller.velocity;
 
@@ -187,5 +202,12 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.color = new Color(0.0f, 1.0f, 0.0f, 0.35f);
         Gizmos.DrawSphere(groundCheck.position, groundDistance);
     }
-    
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.layer.Equals(13))
+        {
+            other.gameObject.GetComponent<Collider>().isTrigger = false;
+        }
+    }
 }

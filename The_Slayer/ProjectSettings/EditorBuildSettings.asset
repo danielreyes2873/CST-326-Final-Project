@@ -11,12 +11,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/UI_Testing.unity
     guid: 412cbae8b523fb148ae89c74908dd5e7
-  - enabled: 1
+  - enabled: 0
     path: Assets/Package_Jason/PlayerControllerUpdate3.unity
     guid: 72677babeb87d034e88bdd42f2385941
-  - enabled: 1
+  - enabled: 0
     path: Assets/Package_Jason/Debug_Test_Scene.unity
     guid: bf3057e47070c05449ea0531b1f39710
+  - enabled: 0
+    path: Assets/Joseph/Scene/Level 2 - Tunnels - Joseph.unity
+    guid: 4d4e4ce40a53f97448d097b3281f7cc1
+  - enabled: 1
+    path: Assets/Scenes/Level 2 - Tunnels.unity
+    guid: d78b61ae76fe39946981ecf9cc0e5c30
   - enabled: 1
     path: Assets/Scenes/CreditScene.unity
     guid: ed5ba2a5a90f86642a306de7f68da8ce

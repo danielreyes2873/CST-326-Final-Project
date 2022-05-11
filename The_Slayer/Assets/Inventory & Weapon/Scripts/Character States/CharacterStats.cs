@@ -34,9 +34,9 @@ public class CharacterStats : MonoBehaviour
     public Transform MagazineSlot;
 
     private GameObject Magzine;
-    private GameObject Weapon;
+    public GameObject Weapon;
 
-    void Awake()
+    void Start()
     {
         if (characterTemplateData != null)
         {
@@ -56,10 +56,7 @@ public class CharacterStats : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.L))
-        {
-            SwitchWeapon();
-        }
+
     }
     //Melee Attack
     public void MeleeAttack(CharacterStats defender)

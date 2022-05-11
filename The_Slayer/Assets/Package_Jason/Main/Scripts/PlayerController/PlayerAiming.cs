@@ -46,6 +46,7 @@ public class PlayerAiming : MonoBehaviour
     private CameraRecoil _cameraRecoil;
     private bool reload = false;
     private RaycastTest _raycastTest;
+    private bool dead = false;
 
     private void Awake()
     {
@@ -55,6 +56,7 @@ public class PlayerAiming : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        dead = false;
         if (lockCursor)
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -68,7 +70,10 @@ public class PlayerAiming : MonoBehaviour
         EventHandler.Reloading += OnReloading;
         EventHandler.OpenInventory += OnInventoryOpen;
         EventHandler.CloseInventory += OnInventoryClose;
+        EventHandler.PlayerDead += OnPlayerDead;
     }
+
+
 
     private void OnDisable()
     {
@@ -76,6 +81,14 @@ public class PlayerAiming : MonoBehaviour
         EventHandler.Reloading -= OnReloading;
         EventHandler.OpenInventory -= OnInventoryOpen;
         EventHandler.CloseInventory -= OnInventoryClose;
+        EventHandler.PlayerDead -= OnPlayerDead;
+    }
+
+    private void OnPlayerDead()
+    {
+        dead = true;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     private void OnInventoryClose()
@@ -106,12 +119,14 @@ public class PlayerAiming : MonoBehaviour
     {
         mainGun = GameManager.Instance.playerStats.currentWeapon.weaponPrefab;
         mainGunComponent = mainGun.GetComponent<Gun>();
-        _cameraRecoil = GetComponentInChildren<CameraRecoil>();
+        _cameraRecoil = FindObjectOfType<CameraRecoil>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (dead) return;
+
         if (Input.GetKey(fireKey) && Time.time > timeStamp && GameManager.Instance.playerStats.currentWeapon.currentMag > 0 && !reload)
         {
             timeStamp = Time.time + GameManager.Instance.playerStats.currentWeapon.fireRate;
@@ -157,11 +172,11 @@ public class PlayerAiming : MonoBehaviour
                 Destroy(impact, 2f);
             }
 
-            _raycastTest.Hit(hit);
+            //_raycastTest.Hit(hit);
 
-            // GameObject.Find("Main Camera").GetComponent<RaycastTest>().Hit(hit);
+            GameObject.FindObjectOfType<RaycastTest>().Hit(hit);
 
-            
+
         }
     }
 

@@ -11,6 +11,7 @@ public class RigisterPlayer : MonoBehaviour
     {
         playerStats = GetComponent<CharacterStats>();
         GameManager.Instance.RigisterPlayer(playerStats);
+        EventHandler.CallPlayerRigister();
     }
 
 }

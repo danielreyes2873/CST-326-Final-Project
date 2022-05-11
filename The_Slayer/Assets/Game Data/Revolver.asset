@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 231015480c74f6e458812d4dfe5e764a, type: 3}
+  m_Name: Revolver
+  m_EditorClassIdentifier: 
+  itemType: 1
+  itemName: Revolver
+  itemIcon: {fileID: 0}
+  itemAmount: 0
+  description: 
+  stackable: 0
+  healProps: {fileID: 0}
+  coolDown: 0
+  weaponPrefab: {fileID: 4025006987638775885, guid: 35a280138b3343546a59d0273e9c28b1, type: 3}
+  magazine: {fileID: 100000, guid: 132d7320bfe2d1549a68a95099c058fb, type: 3}
+  weaponOnWorld: {fileID: 912383225824186506, guid: 96fff7fd2fb353b4baf0a1e8e043cea1, type: 3}
+  gunType: 0
+  damage: 23
+  currentMag: 4
+  spareAmmo: 24
+  currentMagCap: 6
+  maxAmmo: 24
+  fireRate: 1.5
+  reloadDelay: 1

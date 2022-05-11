@@ -101,7 +101,7 @@ public class PlayerStats : MonoBehaviour
     public void GameOver()
     {
         gameIsOver = true;
-        
+        EventHandler.CallPlayerDead();
         //hide the health and ammo section
         healthSection.SetActive(false);
         ammoSection.SetActive(false);
@@ -139,6 +139,12 @@ public class PlayerStats : MonoBehaviour
         
         //song is ~30 seconds long
         yield return new WaitForSeconds(35);
+        
+        totalPlayerScore = 0;
+        totalPlayerKills = 0;
+        totalPlayerHeadshots = 0;
+        totalRoundsSurvived = 0;
+        
         SceneManager.LoadScene("MainMenu");
     }
     

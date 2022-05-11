@@ -39,7 +39,11 @@ public class CameraRecoil : MonoBehaviour
 
     private void OnAfterChangeWeapon()
     {
-        mainGun = GameManager.Instance.playerStats.currentWeapon.weaponPrefab.GetComponent<Gun>();
+        Debug.Log(GameManager.Instance.playerStats.currentWeapon.weaponPrefab == null);
+
+        var gun = GameManager.Instance.playerStats.Weapon.GetComponent<Gun>();
+        mainGun = gun;
+        Debug.Log(mainGun == null);
         recoilX = mainGun.recoilX;
         recoilY = mainGun.recoilY;
         recoilZ = mainGun.recoilZ;
