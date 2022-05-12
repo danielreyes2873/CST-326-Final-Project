@@ -105,8 +105,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3511837536490053256}
   - component: {fileID: 3511837536490053259}
-  - component: {fileID: 3511837536490053258}
-  - component: {fileID: 3511837536490053257}
   m_Layer: 13
   m_Name: Z_R_Forearm
   m_TagString: Limb
@@ -186,32 +184,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.33271015, y: 0.074496835, z: 0.014275014}
     m_Extent: {x: 0.19994229, y: 0.16534758, z: 0.08456545}
   m_DirtyAABB: 0
---- !u!135 &3511837536490053258
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3511837536490053263}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.12925136
-  m_Center: {x: 0.49010015, y: 0.06264529, z: 1.2411392}
---- !u!135 &3511837536490053257
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3511837536490053263}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.15344064
-  m_Center: {x: 0.6349058, y: 0.005662627, z: 1.078055}
 --- !u!1 &3511837536500339260
 GameObject:
   m_ObjectHideFlags: 0
@@ -2533,8 +2505,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3511837537513600442}
   - component: {fileID: 3511837537513600389}
-  - component: {fileID: 3511837537513600388}
-  - component: {fileID: 3511837537513600443}
   m_Layer: 13
   m_Name: Z_L_Forearm
   m_TagString: Limb
@@ -2614,32 +2584,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.33271068, y: 0.07449715, z: -0.014274962}
     m_Extent: {x: 0.19994229, y: 0.16534746, z: 0.08456549}
   m_DirtyAABB: 0
---- !u!135 &3511837537513600388
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3511837537513600441}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.15280859
-  m_Center: {x: -0.5743341, y: -0.099999994, z: 1.1739484}
---- !u!135 &3511837537513600443
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3511837537513600441}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.14521639
-  m_Center: {x: -0.41607317, y: 0.06724877, z: 1.2683545}
 --- !u!1 &3511837537542514247
 GameObject:
   m_ObjectHideFlags: 0
@@ -13740,10 +13684,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.19772154
+  m_Radius: 0.32359454
   m_Height: 1.4112003
   m_Direction: 1
-  m_Center: {x: 0.022463515, y: 0.8367294, z: 0.014750496}
+  m_Center: {x: 0.0011972785, y: 0.8367294, z: 0.01475051}
 --- !u!82 &3511837538246820249
 AudioSource:
   m_ObjectHideFlags: 0

@@ -1007,7 +1007,10 @@ MonoBehaviour:
 
     R - Reload
 
-    WASD & Spacebar - Basic Movement'
+    E (Double Tap) - Open Doors
+
+    WASD
+    & Spacebar - Basic Movement'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 266b04c070cddc040b8b35aff67a1e1c, type: 2}
   m_sharedMaterial: {fileID: 8586618142724743048, guid: 266b04c070cddc040b8b35aff67a1e1c, type: 2}
